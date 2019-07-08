@@ -1,0 +1,178 @@
+\documentclass[aspectratio=169]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{default}
+\usepackage[T1]{fontenc}
+\usepackage[magyar]{babel}
+\usepackage{indentfirst}
+\usepackage{listingsutf8}
+\usepackage{graphicx}
+\lstset{literate=
+  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\EUR}}1 {£}{{\pounds}}1 {ő}{{\H{o}}}1
+}
+\lstdefinestyle{cpp}{
+  language=[ISO]C++,
+  showstringspaces=false,
+  keywordstyle=\color{MidnightBlue}\bfseries,
+  stringstyle=\color{DarkOrchid},
+  commentstyle=\color{Brown},
+  morecomment=[l][\color{OliveGreen}]{\#}
+}
+\usepackage{hyperref}
+\usepackage{attachfile}
+\usepackage{multirow}
+\attachfilesetup{color={1.0 0.6 0.0},author={HFM},description={Kattintson duplán a minta %
+megtekintéséhez!},icon=Paperclip}
+\usetheme{Warsaw}
+\definecolor{kiemelesszin}{rgb}{0.6,0.0,0.0}
+\definecolor{kiemelesszinZ}{rgb}{0.0,0.6,0.0}
+\definecolor{kiemelesszinN}{RGB}{196,127,0}
+\definecolor{hivatkozasszin}{rgb}{0.0,0.0,0.75}
+\newcommand{\kiemel}[1]{{\color{kiemelesszin}#1}}
+\newcommand{\kiemelZ}[1]{{\color{kiemelesszinZ}#1}}
+\newcommand{\kiemelN}[1]{{\color{kiemelesszinN}#1}}
+\newcommand{\hiv}[1]{{\color{hivatkozasszin}#1}}
+\frenchspacing
+\usetheme{Warsaw}
+
+\title[Modern szoftverfejlesztési eszközök - egységtesztek]{C++ programok egységtesztelése googletest segítségével}
+\subtitle{(GKxB\_INTM006)}
+\author{Dr. Hatwágner F. Miklós}
+\institute{Széchenyi István Egyetem, Győr}
+
+\begin{document}
+
+%1
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\section{Dióhéjban a tesztelésről}
+
+\begin{frame}
+  Tesztelés célja: a hibákat megtalálni üzembe helyezés előtt
+  \vfill
+  Tesztelés alapelvei
+  \begin{enumerate}
+    \item A tesztelés bizonyos hibák jelenlétét jelezheti (ha nem jelzi, az nem jelent automatikusan hibamentességet)
+    \item Nem lehetséges kimerítő teszt (a hangsúly a magas kockázatú részeken van)
+    \item Korai teszt (minél hamarabb találjuk meg a hibát, annál olcsóbb javítani)
+    \item Hibák csoportosulása (azokra a modulokra/bemenetekre kell tesztelni, amelyre a legvalószínűbben hibás a szoftver)
+    \item Féregirtó paradoxon (a tesztesetek halmazát időnként bővíteni kell, mert ugyanazokkal a tesztekkel nem fedhetünk fel 
+több hibát)
+    \item Körülmények (tesztelés alapossága függ a felhasználás helyétől, a rendelkezésre álló időtől, stb.)
+    \item A hibátlan rendszer téveszméje (A megrendelő elsősorban az igényeinek megfelelő szoftvert szeretne, és csak 
+másodsorban hibamenteset; verifikáció vs. validáció)
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  Tesztelési technikák
+  \begin{description}[mm]
+    \item[Fekete dobozos (black-box, specifikáció alapú)] \hfill\\ A tesztelő nem látja a forrást, de a specifikációt igen, és 
+hozzáfér a futtatható szoftverhez. Összehasonlítjuk a bemenetekre adott kimeneteket az elvárt kimenetekkel.
+    \item[Fehér dobozos (white-box, strukturális teszt)] \hfill\\ Kész struktúrákat tesztelünk, pl.:
+    \begin{itemize}
+      \item kódsorok,
+      \item elágazások,
+      \item metódusok,
+      \item osztályok,
+      \item funkciók,
+      \item modulok.
+    \end{itemize}
+    Lefedettség: a struktúra hány \%-át tudjuk tesztelni a tesztesetekkel?\\
+    Egységteszt (unit test): a metódusok struktúra tesztje.
+  \end{description}
+\end{frame}
+
+\begin{frame}
+  A tesztelés szintjei:
+  \begin{enumerate}
+    \item komponensteszt (egy komponens tesztelése)
+    \begin{enumerate}
+      \item egységteszt
+      \item modulteszt
+    \end{enumerate}
+    \item integrációs teszt (kettő vagy több komponens együttműködése)
+    \item rendszerteszt (minden komponens együtt)
+    \item átvételi teszt (kész rendszer)
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  Kik végzik a tesztelést?
+  \begin{itemize}
+    \item[1-3] Fejlesztő cég
+    \item[4] Felhasználók
+  \end{itemize}
+  Komponensteszt
+  \begin{itemize}
+    \item fehér dobozos teszt
+    \item egységteszt
+    \begin{itemize}
+      \item bemenet $\to$ kimenet vizsgálata
+      \item nem lehet mellékhatása
+      \item regressziós teszt: módosítással elronthattunk valamit, ami eddig jó volt $\to$ megismételt egységtesztek
+    \end{itemize}
+    \item modulteszt
+    \begin{itemize}
+      \item nem funkcionális tulajdonságok: sebesség, memóriaszivárgás (memory leak), szűk keresztmetszetek (bottleneck)
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  Integrációs teszt
+  \begin{itemize}
+    \item Komponensek közötti interfészek ellenőrzése, pl.
+    \begin{itemize}
+      \item komponens - komponens (egy rendszer komponenseinek együttműködése)
+      \item rendszer - rendszer (pl. OS és a fejlesztett rendszer között)
+    \end{itemize}
+    \item Jellemző hibaokok: komponenseket eltérő csapatok fejlesztik, elégtelen kommunikáció
+    \item Kockázatok csökkentése: mielőbbi integrációs tesztekkel
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  Rendszerteszt: a termék megfelel-e a
+  \begin{itemize}
+    \item követelmény specifikációnak,
+    \item funkcionális specifikációnak,
+    \item rendszertervnek.
+  \end{itemize}
+  Gyakran fekete dobozos, külső cég végzi (elfogulatlanság)\\
+  Leendő futtatási környezet imitációja
+\end{frame}
+
+\begin{frame}
+  Átvételi teszt, fajtái:
+  \begin{itemize}
+    \item alfa: kész termék tesztelése a fejlesztőnél, de nem általa (pl. segédprogramok)
+    \item béta: szűk végfelhasználói csoport
+    \item felhasználói átvételi teszt: minden felhasználó használja, de nem éles termelésben. Jellemző a környezetfüggő hibák 
+megjelenése (pl. sebesség)
+    \item üzemeltetői átvételi teszt: rendszergazdák végzik, biztonsági mentés, helyreállítás, stb. helyesen működnek-e
+  \end{itemize}
+\end{frame}
+
+\section{Források}
+
+\begin{frame}
+  Tesztelésről általában:\\
+  \hiv{\href{https://www.tankonyvtar.hu/hu/tartalom/tamop425/0046\_szoftverteszteles/index.html}%
+  {Ficsor Lajos, Kovács László, Kusper Gábor, Krizsán Zoltán: Szoftvertesztelés}}\\
+  \hiv{\href{https://hstqb.org/downloadarea/istqb-ctfl-syllabus-2018-magyar/}{ISTQB CTFL Syllabus 2018}}\\  
+\end{frame}
+
+\end{document}
