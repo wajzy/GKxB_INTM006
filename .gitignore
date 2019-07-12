@@ -46,3 +46,6 @@
 *.tex.backup
 *.vrb
 *.synctex.gz
+
+# CMake files
+**/CMakeFiles

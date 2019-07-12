@@ -1,12 +1,10 @@
-\documentclass[aspectratio=169]{beamer}
+\documentclass[usenames,dvipsnames,aspectratio=169]{beamer}
 
 \usepackage[utf8]{inputenc}
-\usepackage{default}
 \usepackage[T1]{fontenc}
 \usepackage[magyar]{babel}
 \usepackage{indentfirst}
 \usepackage{listingsutf8}
-\usepackage{graphicx}
 \lstset{literate=
   {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
   {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
@@ -43,7 +41,7 @@ megtekintéséhez!},icon=Paperclip}
 \newcommand{\kiemelN}[1]{{\color{kiemelesszinN}#1}}
 \newcommand{\hiv}[1]{{\color{hivatkozasszin}#1}}
 \frenchspacing
-\usetheme{Warsaw}
+\usetheme{Berlin}
 
 \title[Modern szoftverfejlesztési eszközök - egységtesztek]{C++ programok egységtesztelése googletest segítségével}
 \subtitle{(GKxB\_INTM006)}
@@ -166,13 +164,302 @@ megjelenése (pl. sebesség)
   \end{itemize}
 \end{frame}
 
+\section{C++ egységtesztelés}
+
+\begin{frame}
+  Rengeteg C++ egységteszt keretrendszerből lehet választani:
+  \begin{itemize}
+    \item \hiv{\href{https://en.wikipedia.org/wiki/List\_of\_unit\_testing\_frameworks\#C++}{Wiki oldal}}
+    \item \hiv{\href{http://gamesfromwithin.com/exploring-the-c-unit-testing-framework-jungle}%
+      {Exploring the C++ Unit Testing Framework Jungle}}
+    \item \hiv{\href{https://accu.org/index.php/journals/1326}{C++ Unit Test Frameworks}}
+  \end{itemize}
+  \vfill
+  Részletesen megvizsgáljuk: googletest
+\end{frame}
+
+\section{googletest}
+
+\begin{frame}
+  A googletest főbb tulajdonságai
+  \begin{itemize}
+    \item platformfüggetlen (Linux, Windows, Mac)
+    \item független és megismételhető tesztek
+    \item struktúrálható tesztek (teszt program $\to$ teszt csomag $\to$ teszteset)
+    \item informatív
+    \item leveszi a tesztelés technikai részének terhét a tesztelőről
+    \item gyors (megosztott erőforrások)
+    \item könnyen tanulható (xUnit architektúra)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  Telepítés (Ubuntu 18.04 LTS)
+  \begin{description}[m]
+    \item[\texttt{sudo apt install libgtest-dev}] \hfill \\ Teszt keretrendszer forrásainak beszerzése.
+    \item[\texttt{sudo apt install cmake}] \hfill \\ Ezzel végezzük a forráskódok automatizált fordítását.
+    \item[\texttt{cd /usr/src/gtest}] \hfill \\ Ebben a mappában találhatóak a források.
+    \item[\texttt{sudo cmake CMakeLists.txt}] \hfill \\ Összeállító (build) környezet előkészítése.
+    \item[\texttt{sudo make}] \hfill \\ Összeállítás indítása.
+  \end{description}
+\end{frame}
+
+\begin{frame}
+  \begin{description}[m]
+    \item[\texttt{sudo ln -st /usr/lib/ /usr/src/gtest/libgtest.a}]
+    \item[\texttt{sudo ln -st /usr/lib/ /usr/src/gtest/libgtest\_main.a}] \hfill \\ Szimbolikus hivatkozások létrehozása.
+  \end{description}
+  \vfill
+  Feladat
+  \begin{itemize}
+    \item[] Készítsünk mátrixműveleteket megvalósító osztályt, ami elsőként egy mátrixszorzást valósít meg.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{01/matrix01.h}{matrix01.h}}
+    \footnotesize
+    \lstinputlisting[style=cpp,linerange={1-13},numbers=left,firstnumber=1]{01/matrix01.h}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{01/matrix01.h}{matrix01.h}}
+    \lstinputlisting[style=cpp,linerange={14-19},numbers=left,firstnumber=14]{01/matrix01.h}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{01/matrix01.h}{matrix01.h}}
+    \lstinputlisting[style=cpp,linerange={21-29},numbers=left,firstnumber=21]{01/matrix01.h}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{01/matrix01.h}{matrix01.h}}
+    \footnotesize
+    \lstinputlisting[style=cpp,linerange={31-43},numbers=left,firstnumber=31]{01/matrix01.h}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{01/matrix01.h}{matrix01.h}}
+    \small
+    \lstinputlisting[style=cpp,linerange={45-56},numbers=left,firstnumber=45]{01/matrix01.h}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{01/example01.cpp}{example01.cpp}}
+    \small
+    \lstinputlisting[style=cpp,linerange={1-13},numbers=left,firstnumber=1]{01/example01.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{exampleblock}{\textattachfile{01/example01.cpp}{example01.cpp}}
+    \small
+    \lstinputlisting[style=cpp,linerange={14-21},numbers=left,firstnumber=14]{01/example01.cpp}
+  \end{exampleblock}
+  \begin{block}{Kimenet}
+    \begin{verbatim}
+50      50      50
+90      90      90
+130     130     130
+\end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  Készítsünk az \texttt{example01.cpp} alapján googletest alapú tesztprogramot!
+  \begin{exampleblock}{\textattachfile{01/matrix01test.cpp}{matrix01test.cpp}}
+    \footnotesize
+    \lstinputlisting[style=cpp,linerange={1-12},numbers=left,firstnumber=1]{01/matrix01test.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{01/matrix01test.cpp}{matrix01test.cpp}}
+    \lstinputlisting[style=cpp,linerange={13-20},numbers=left,firstnumber=13]{01/matrix01test.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{01/matrix01test.cpp}{matrix01test.cpp}}
+    \footnotesize
+    \lstinputlisting[style=cpp,linerange={21-33},numbers=left,firstnumber=21]{01/matrix01test.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{01/CMakeLists.txt}{CMakeLists.txt}}
+    \footnotesize
+    \lstinputlisting[style=cpp,linerange={1-10},numbers=left,firstnumber=1]{01/CMakeLists.txt}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{description}[m]
+    \footnotesize
+    \item[\texttt{cmake CMakeLists.txt}] \hfill \\ Összeállító (build) környezet beállítása.
+    \item[\texttt{make}] \hfill \\ Összeállítás indítása.
+    \item[\texttt{./runTests}] \hfill \\ Tesztprogram indítása.
+  \end{description}
+  \begin{block}{Kimenet}
+    \scriptsize
+    \begin{verbatim}
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from MulTest
+[ RUN      ] MulTest.meaningful
+[       OK ] MulTest.meaningful (0 ms)
+[----------] 1 test from MulTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+\end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \begin{description}[m]
+    \item[Teszteset (test case)] \hfill \\ "A set of preconditions, inputs, actions (where applicable), %
+      expected results and postconditions, developed based on test conditions."\\
+      (meaningful, ld. \texttt{matrix01test.ccp} 5. sor)
+    \item[Tesztkészlet (test suite)] \hfill \\ "A set of test cases or test procedures to be executed in a specific test cycle."\\
+      (MulTest, ld. \texttt{matrix01test.ccp} 5. sor)
+    \item[Tesztprogram (test program)] \hfill \\ Egy vagy több tesztkészletet foglal magába.
+  \end{description}
+\end{frame}
+
+\begin{frame}
+  \begin{description}[m]
+    \item[Assertion ($\approx$ állítás, követelés)] Ellenőrizzük valamely elvárásunk teljesülését $\to$ siker (success), %
+      nem végzetes hiba (nonfatal failure), végzetes hiba (fatal failure).\\
+      Makrók:
+      \begin{description}[m]
+        \item[\texttt{EXPECT\_*}] nem végzetes hibát generál, ajánlott (több hiba jelezhető egyszerre)
+        \item[\texttt{ASSERT\_*}] végzetes hibát generál, azonnal leállítja a tesztesetet (nincs értelme a folytatásnak; pl. ha két mátrix nem azonos méretű, nincs értelme az elemeiket összehasonlítgatni). \kiemel{Erőforrások felszabadítása, takarítás is elmarad!}
+      \end{description}
+  \end{description}
+\end{frame}
+
+\begin{frame}
+  Rontsuk el a kódot! (,,Elfelejtjük'' összegezni a szorzatokat.)
+  \begin{exampleblock}{\textattachfile{02/matrix02.h}{matrix02.h} %
+    (\textattachfile{02/matrix02test.cpp}{matrix02test.cpp}, %
+    \textattachfile{02/CMakeLists.txt}{CMakeLists.txt})}
+    \lstinputlisting[style=cpp,linerange={45-51},numbers=left,firstnumber=45]{02/matrix02.h}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{block}{Kimenet}
+    \footnotesize
+    \begin{verbatim}
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from MulTest
+[ RUN      ] MulTest.meaningful
+/home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/02/matrix02test.cpp:25: Failure
+      Expected: expected[row][col]
+      Which is: 50
+To be equal to: multiplied.get(row, col)
+      Which is: 0
+...
+\end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \footnotesize
+  \begin{block}{Kimenet}
+    \begin{verbatim}
+...
+/home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/02/matrix02test.cpp:25: Failure
+      Expected: expected[row][col]
+      Which is: 130
+To be equal to: multiplied.get(row, col)
+      Which is: 0
+[  FAILED  ] MulTest.meaningful (1 ms)
+[----------] 1 test from MulTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] MulTest.meaningful
+
+ 1 FAILED TEST
+\end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  Most rontsuk el másképp a kódot! (Túl nagy lesz az eredmény mátrix.)
+  \begin{exampleblock}{\textattachfile{03/matrix03.h}{matrix03.h} %
+    (\textattachfile{03/CMakeLists.txt}{CMakeLists.txt})}
+    \lstinputlisting[style=cpp,linerange={40-44},numbers=left,firstnumber=40]{03/matrix03.h}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{03/matrix03test.cpp}{matrix03test.cpp}}
+    \footnotesize
+    \lstinputlisting[style=cpp,linerange={21-33},numbers=left,firstnumber=21]{03/matrix03test.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{block}{Kimenet}
+    \tiny
+    \begin{verbatim}
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from MulTest
+[ RUN      ] MulTest.meaningful
+/home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/03/matrix03test.cpp:21: Failure
+      Expected: expected.size()
+      Which is: 3
+To be equal to: multiplied.getRowCount()
+      Which is: 6
+A sorok szama elter! Elvart: 3, kapott: 6
+[  FAILED  ] MulTest.meaningful (0 ms)
+[----------] 1 test from MulTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] MulTest.meaningful
+
+ 1 FAILED TEST
+\end{verbatim}
+  \end{block}
+  \begin{itemize}
+    \item Az \texttt{ASSERT\_EQ} leállította a tesztesetet.
+    \item Testreszabott hibaüzeneteket jelenítettünk meg.
+  \end{itemize}
+\end{frame}
+
 \section{Források}
 
 \begin{frame}
-  Tesztelésről általában:\\
+  Tesztelésről általában\\
   \hiv{\href{https://www.tankonyvtar.hu/hu/tartalom/tamop425/0046\_szoftverteszteles/index.html}%
   {Ficsor Lajos, Kovács László, Kusper Gábor, Krizsán Zoltán: Szoftvertesztelés}}\\
-  \hiv{\href{https://hstqb.org/downloadarea/istqb-ctfl-syllabus-2018-magyar/}{ISTQB CTFL Syllabus 2018}}\\  
+  \hiv{\href{https://hstqb.org/downloadarea/istqb-ctfl-syllabus-2018-magyar/}{ISTQB CTFL Syllabus 2018}}\\
+  \hiv{\href{https://glossary.istqb.org/en/search/}{Szakkifejezések kereshető gyűjteménye}}\\
+  \vfill
+  googletest\\
+  \hiv{\href{https://github.com/google/googletest/blob/master/googletest/docs/primer.md}%
+    {Hivatalos Google tutorial, bevezető}}\\
+  \hiv{\href{https://github.com/google/googletest/blob/master/googletest/docs/advanced.md}%
+    {Hivatalos Google tutorial, fejlett technikák}}\\
+  \hiv{\href{https://www.eriksmistad.no/getting-started-with-google-test-on-ubuntu/}%
+    {Ubuntu-specifikus részletek}}\\
+  \hiv{\href{https://developer.ibm.com/articles/au-googletestingframework/}{IBM tananyag a googletest-hez}}\\
 \end{frame}
 
 \end{document}
