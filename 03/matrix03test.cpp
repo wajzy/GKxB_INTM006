@@ -3,21 +3,21 @@
 #include<gtest/gtest.h>
 
 TEST(MulTest, meaningful) {
-  std::vector<std::vector<double>> left = {
+  std::vector<std::vector<int>> left = {
     {11, 12, 13, 14},
     {21, 22, 23, 24},
     {31, 32, 33, 34}
   };
-  std::vector<std::vector<double>> right;
-  right.resize(4, std::vector<double>(3, 1.));
-  std::vector<std::vector<double>> expected = {
+  std::vector<std::vector<int>> right;
+  right.resize(4, std::vector<int>(3, 1.));
+  std::vector<std::vector<int>> expected = {
     {50, 50, 50},
     {90, 90, 90},
     {130, 130, 130}
   };
-  szeMatrix::Matrix<double> m1(left);
-  szeMatrix::Matrix<double> m2(right);
-  szeMatrix::Matrix<double> multiplied = m1.mul(m2);
+  szeMatrix::Matrix<int> m1(left);
+  szeMatrix::Matrix<int> m2(right);
+  szeMatrix::Matrix<int> multiplied = m1.mul(m2);
   ASSERT_EQ(expected.size(), multiplied.getRowCount()) 
     << "A sorok szama elter! Elvart: " << expected.size()
     << ", kapott: " << multiplied.getRowCount();

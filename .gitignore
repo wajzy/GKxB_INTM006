@@ -30,6 +30,8 @@
 *.exe
 *.out
 *.app
+**/runTests
+**/example??
 
 # LaTeX temps
 *.toc

@@ -1,4 +1,4 @@
-#include"matrix04.h"
+#include"matrix05.h"
 #include<vector>
 #include<cmath>
 #include<gtest/gtest.h>
@@ -46,7 +46,8 @@ TEST(MulTest, rounding) {
   ASSERT_EQ(expected[0].size(), multiplied.getColCount());
   for(unsigned row=0; row<expected.size(); row++) {
     for(unsigned col=0; col<expected[row].size(); col++) {
-      EXPECT_EQ(expected[row][col], multiplied.get(row, col));
+      //EXPECT_EQ(expected[row][col], multiplied.get(row, col));
+      EXPECT_DOUBLE_EQ(expected[row][col], multiplied.get(row, col));
     }
   }
 }
