@@ -47,6 +47,7 @@ megtekintéséhez!},icon=Paperclip}
 \subtitle{(GKxB\_INTM006)}
 \author{Dr. Hatwágner F. Miklós}
 \institute{Széchenyi István Egyetem, Győr}
+\date{\hiv{\href{https://github.com/wajzy/GKxB\_INTM006.git}{https://github.com/wajzy/GKxB\_INTM006.git}}\\ \today}
 
 \begin{document}
 
@@ -213,6 +214,10 @@ megjelenése (pl. sebesség)
   Feladat
   \begin{itemize}
     \item[] Készítsünk mátrixműveleteket megvalósító osztályt, ami elsőként egy mátrixszorzást valósít meg.
+    \item[] Az $A[a_{i,j}]_{m\times{n}}$ és $B[b_{i,j}]_{n\times{p}}$mátrixok
+szorzatán azt a $C[c_{i,j}]_{m\times{p}}$ mátrixot értjük, amelyre $c_{i,j} =
+a_{i,1}\cdot{b}_{1,j} + a_{i,2}\cdot{b}_{2,j} + \dots + a_{i,n}\cdot{b}_{n,j} =
+\sum_{k=1}^{n}a_{i,k}\cdot{b}_{k,j}$ 
   \end{itemize}
 \end{frame}
 
@@ -442,6 +447,56 @@ A sorok szama elter! Elvart: 3, kapott: 6
     \item Testreszabott hibaüzeneteket jelenítettünk meg.
   \end{itemize}
 \end{frame}
+
+\begin{frame}
+  \begin{center}
+    Elemi követelmények
+    \medskip\\
+    \begin{tabular}{lll}
+      \textbf{Végzetes hibákhoz} & \textbf{Nem végzetes hibákhoz} & \textbf{Követelmény}\\ \hline
+      ASSERT\_TRUE(\emph{feltétel}) & EXPECT\_TRUE(\emph{feltétel}) & \emph{feltétel} igaz értékű\\
+      ASSERT\_FALSE(\emph{feltétel}) & EXPECT\_FALSE(\emph{feltétel}) & \emph{feltétel} hamis értékű
+    \end{tabular}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \begin{center}
+    Relációs követelmények
+    \medskip\\
+    \begin{tabular}{lll}
+      \textbf{Végzetes hibákhoz} & \textbf{Nem végzetes hibákhoz} & \textbf{Követelmény}\\ \hline
+      ASSERT\_EQ(\emph{val1}, \emph{val2}); & EXPECT\_EQ(\emph{val1}, \emph{val2}); & \emph{val1} == \emph{val2}\\
+      ASSERT\_NE(\emph{val1}, \emph{val2}); & EXPECT\_NE(\emph{val1}, \emph{val2}); & \emph{val1} != \emph{val2}\\
+      ASSERT\_LT(\emph{val1}, \emph{val2}); & EXPECT\_LT(\emph{val1}, \emph{val2}); & \emph{val1} < \emph{val2}\\
+      ASSERT\_LE(\emph{val1}, \emph{val2}); & EXPECT\_LE(\emph{val1}, \emph{val2}); & \emph{val1} <= \emph{val2}\\
+      ASSERT\_GT(\emph{val1}, \emph{val2}); & EXPECT\_GT(\emph{val1}, \emph{val2}); & \emph{val1} > \emph{val2}\\
+      ASSERT\_GE(\emph{val1}, \emph{val2}); & EXPECT\_GE(\emph{val1}, \emph{val2}); & \emph{val1} >= \emph{val2}
+    \end{tabular}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  Megjegyzések
+  \begin{itemize}
+    \item A feltüntetett operátoroknak definiáltnak kell lenniük \emph{val1} és \emph{val2} között. Lehetőségeink:
+    \begin{enumerate}
+      \item Felültöltjük az operátorokat.
+      \item Az \{ASSERT,EXPECT\}\_\{TRUE,FALSE\} makrókat használjuk, de ezek nem írják a kimenetre az elvárt/kapott 
+értékeket.
+    \end{enumerate}
+    \item A paraméterek egyszer lesznek kiértékelve, de nem definiált sorrendben (mellékhatások).
+    \item Az \{ASSERT,EXPECT\}\_EQ makrók mutatók esetén a címeket hasonlítja össze, nem az ott lévő tartalmat! C-stílusú 
+karakterláncok kezeléséhez külön makrók léteznek. (\texttt{string} objektumokkal nincs gond.)
+    \item C++11 szabványnak megfelelő fordító esetén \texttt{NULL} helyett \texttt{nullptr}-t használjunk 
+(utóbbi nem konvertálható implicit módon \texttt{int}-té)!
+    \item Lebegőpontos számok összehasonlításakor kerekítési hibák adódhatnak.
+  \end{itemize}
+\end{frame}
+
+% új teszteset lebegőpontos számok ellenőrzéséhez
+% két mátrix összehasonlítása == operátorral?
+% karakterláncok összehasonlítása
 
 \section{Források}
 
