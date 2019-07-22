@@ -700,8 +700,105 @@ wajzy@wajzy-notebook:~/Dokumentumok/gknb_intm006/GKxB_INTM006/08$ ./runTests
   \end{block}
 \end{frame}
 
-% karakterláncok összehasonlítása
-% ugyanazokat a vektorokat hoztam létre többször a különböző tesztekhez: ezt el eliminálni kellene
+\begin{frame}
+  Teszteljük le a \texttt{print()} tagfüggvény kimenetét!
+  \vfill
+  \begin{tabular}{ll}
+    \textbf{Függvény} & \textbf{Funkció}\\ \hline
+    \texttt{CaptureStdout()} & Megkezdi az \texttt{stdout}-ra írt tartalom rögzítését\\
+    \texttt{GetCapturedStdout()} & Lekérdezi a rögzített tartalmat és leállítja a rögzítést\\
+    \texttt{CaptureStderr()} & Megkezdi az \texttt{stderr}-re írt tartalom rögzítését\\
+    \texttt{GetCapturedStderr()} & Lekérdezi a rögzített tartalmat és leállítja a rögzítést\\
+  \end{tabular}
+  \vfill
+  Belső tagfüggvények, használatuk \kiemel{nem javasolt} (\hiv{\href{%
+https://chromium.googlesource.com/external/github.com/google/googletest/+/HEAD/googletest/include/gtest/internal/gtest-port.h}%
+{googletest forráskód}}).
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{09/matrix09test.cpp}{09/matrix09.cpp} %
+    (\textattachfile{09/matrix09.h}{09/matrix09.h}, %
+     \textattachfile{09/CMakeLists.txt}{09/CMakeLists.txt})}
+    \small
+    \lstinputlisting[style=cpp,linerange={76-85},numbers=left,firstnumber=76]{09/matrix09test.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{block}{Kimenet}
+    \footnotesize
+    \begin{verbatim}
+...
+[ RUN      ] MulTest.print
+/home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/09/matrix09test.cpp:84: Failure
+Value of: output.c_str()
+  Actual: 0x1bb1f28
+Expected: expected
+Which is: 0x475e6a
+[  FAILED  ] MulTest.print (0 ms)
+...
+\end{verbatim}
+  \end{block}
+  \vfill
+  Probléma: a C-stílusú karakterláncok \kiemel{címeit} hasonlítja össze, nem az ott lévő tartalmat!
+\end{frame}
+
+\begin{frame}
+  \begin{center}
+    C-stílusú karakterláncokkal szemben támasztható követelmények
+    \medskip\\
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{llp{0.3\textwidth}}
+      \textbf{Végzetes hibákhoz} & \textbf{Nem végzetes hibákhoz} & \textbf{Követelmény}\\ \hline
+      ASSERT\_STREQ(\emph{str1}, \emph{str2}); & EXPECT\_STREQ(\emph{str1}, \emph{str2}); & A két C-stílusú karakterlánc 
+tartalma azonos\\
+      ASSERT\_STRNE(\emph{str1}, \emph{str2}); & EXPECT\_STRNE(\emph{str1}, \emph{str2}); & A két C-stílusú karakterlánc 
+tartalma eltérő\\
+      ASSERT\_STRCASEEQ(\emph{str1}, \emph{str2}); & EXPECT\_STRCASEEQ(\emph{str1}, \emph{str2}); & A két C-stílusú 
+karakterlánc tartalma a kis- és nagybetűk eltérésétől eltekintve azonos\\
+      ASSERT\_STRCASENE(\emph{str1}, \emph{str2}); & EXPECT\_STRCASENE(\emph{str1}, \emph{str2}); & A két C-stílusú 
+karakterlánc tartalma a kis- és nagybetűk eltérését figyelmen kívül hagyva is eltérő\\
+    \end{tabular}
+    }
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  Javítsuk a tesztesetet és készítsünk további, hasonló tagfüggvényeket (tesztekkel)!
+  \begin{exampleblock}{\textattachfile{10/matrix10test.cpp}{10/matrix10test.cpp} %
+    (\textattachfile{10/CMakeLists.txt}{10/CMakeLists.txt})}
+    \small
+    \lstinputlisting[style=cpp,linerange={76-86},numbers=left,firstnumber=76]{10/matrix10test.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{10/matrix10.h}{10/matrix10.h}}
+    \lstinputlisting[style=cpp,linerange={3-3},numbers=left,firstnumber=3]{10/matrix10.h}
+    \lstinputlisting[style=cpp,linerange={7-7},numbers=left,firstnumber=7]{10/matrix10.h}
+    \lstinputlisting[style=cpp,linerange={11-11},numbers=left,firstnumber=11]{10/matrix10.h}
+    \lstinputlisting[style=cpp,linerange={16-18},numbers=left,firstnumber=16]{10/matrix10.h}
+    \lstinputlisting[style=cpp,linerange={24-24},numbers=left,firstnumber=24]{10/matrix10.h}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{10/matrix10.h}{10/matrix10.h}}
+    \scriptsize
+    \lstinputlisting[style=cpp,linerange={36-51},numbers=left,firstnumber=36]{10/matrix10.h}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{10/matrix10test.cpp}{10/matrix10test.cpp}}
+    \scriptsize
+    \lstinputlisting[style=cpp,linerange={88-102},numbers=left,firstnumber=88]{10/matrix10test.cpp}
+  \end{exampleblock}
+\end{frame}
+
+% ugyanazokat a vektorokat hoztam létre többször a különböző tesztekhez: ezt eliminálni kellene (fixture, setup, teardown)
+% véletlenszerűen generált mtx, intervallum-hiba, tesztismétlések
 
 \section{Források}
 
