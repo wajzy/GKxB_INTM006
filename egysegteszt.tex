@@ -56,128 +56,128 @@ megtekintéséhez!},icon=Paperclip}
   \titlepage
 \end{frame}
 
-\section{Dióhéjban a tesztelésről}
-
-\begin{frame}
-  Tesztelés célja: a hibákat megtalálni üzembe helyezés előtt
-  \vfill
-  Tesztelés alapelvei
-  \begin{enumerate}
-    \item A tesztelés bizonyos hibák jelenlétét jelezheti (ha nem jelzi, az nem jelent automatikusan hibamentességet)
-    \item Nem lehetséges kimerítő teszt (a hangsúly a magas kockázatú részeken van)
-    \item Korai teszt (minél hamarabb találjuk meg a hibát, annál olcsóbb javítani)
-    \item Hibák csoportosulása (azokra a modulokra/bemenetekre kell tesztelni, amelyre a legvalószínűbben hibás a szoftver)
-    \item Féregirtó paradoxon (a tesztesetek halmazát időnként bővíteni kell, mert ugyanazokkal a tesztekkel nem fedhetünk fel 
-több hibát)
-    \item Körülmények (tesztelés alapossága függ a felhasználás helyétől, a rendelkezésre álló időtől, stb.)
-    \item A hibátlan rendszer téveszméje (A megrendelő elsősorban az igényeinek megfelelő szoftvert szeretne, és csak 
-másodsorban hibamenteset; verifikáció vs. validáció)
-  \end{enumerate}
-\end{frame}
-
-\begin{frame}
-  Tesztelési technikák
-  \begin{description}[mm]
-    \item[Fekete dobozos (black-box, specifikáció alapú)] \hfill\\ A tesztelő nem látja a forrást, de a specifikációt igen, és 
-hozzáfér a futtatható szoftverhez. Összehasonlítjuk a bemenetekre adott kimeneteket az elvárt kimenetekkel.
-    \item[Fehér dobozos (white-box, strukturális teszt)] \hfill\\ Kész struktúrákat tesztelünk, pl.:
-    \begin{itemize}
-      \item kódsorok,
-      \item elágazások,
-      \item metódusok,
-      \item osztályok,
-      \item funkciók,
-      \item modulok.
-    \end{itemize}
-    Lefedettség: a struktúra hány \%-át tudjuk tesztelni a tesztesetekkel?\\
-    Egységteszt (unit test): a metódusok struktúra tesztje.
-  \end{description}
-\end{frame}
-
-\begin{frame}
-  A tesztelés szintjei:
-  \begin{enumerate}
-    \item komponensteszt (egy komponens tesztelése)
-    \begin{enumerate}
-      \item egységteszt
-      \item modulteszt
-    \end{enumerate}
-    \item integrációs teszt (kettő vagy több komponens együttműködése)
-    \item rendszerteszt (minden komponens együtt)
-    \item átvételi teszt (kész rendszer)
-  \end{enumerate}
-\end{frame}
-
-\begin{frame}
-  Kik végzik a tesztelést?
-  \begin{itemize}
-    \item[1-3] Fejlesztő cég
-    \item[4] Felhasználók
-  \end{itemize}
-  Komponensteszt
-  \begin{itemize}
-    \item fehér dobozos teszt
-    \item egységteszt
-    \begin{itemize}
-      \item bemenet $\to$ kimenet vizsgálata
-      \item nem lehet mellékhatása
-      \item regressziós teszt: módosítással elronthattunk valamit, ami eddig jó volt $\to$ megismételt egységtesztek
-    \end{itemize}
-    \item modulteszt
-    \begin{itemize}
-      \item nem funkcionális tulajdonságok: sebesség, memóriaszivárgás (memory leak), szűk keresztmetszetek (bottleneck)
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  Integrációs teszt
-  \begin{itemize}
-    \item Komponensek közötti interfészek ellenőrzése, pl.
-    \begin{itemize}
-      \item komponens - komponens (egy rendszer komponenseinek együttműködése)
-      \item rendszer - rendszer (pl. OS és a fejlesztett rendszer között)
-    \end{itemize}
-    \item Jellemző hibaokok: komponenseket eltérő csapatok fejlesztik, elégtelen kommunikáció
-    \item Kockázatok csökkentése: mielőbbi integrációs tesztekkel
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  Rendszerteszt: a termék megfelel-e a
-  \begin{itemize}
-    \item követelmény specifikációnak,
-    \item funkcionális specifikációnak,
-    \item rendszertervnek.
-  \end{itemize}
-  Gyakran fekete dobozos, külső cég végzi (elfogulatlanság)\\
-  Leendő futtatási környezet imitációja
-\end{frame}
-
-\begin{frame}
-  Átvételi teszt, fajtái:
-  \begin{itemize}
-    \item alfa: kész termék tesztelése a fejlesztőnél, de nem általa (pl. segédprogramok)
-    \item béta: szűk végfelhasználói csoport
-    \item felhasználói átvételi teszt: minden felhasználó használja, de nem éles termelésben. Jellemző a környezetfüggő hibák 
-megjelenése (pl. sebesség)
-    \item üzemeltetői átvételi teszt: rendszergazdák végzik, biztonsági mentés, helyreállítás, stb. helyesen működnek-e
-  \end{itemize}
-\end{frame}
-
-\section{C++ egységtesztelés}
-
-\begin{frame}
-  Rengeteg C++ egységteszt keretrendszerből lehet választani:
-  \begin{itemize}
-    \item \hiv{\href{https://en.wikipedia.org/wiki/List\_of\_unit\_testing\_frameworks\#C++}{Wiki oldal}}
-    \item \hiv{\href{http://gamesfromwithin.com/exploring-the-c-unit-testing-framework-jungle}%
-      {Exploring the C++ Unit Testing Framework Jungle}}
-    \item \hiv{\href{https://accu.org/index.php/journals/1326}{C++ Unit Test Frameworks}}
-  \end{itemize}
-  \vfill
-  Részletesen megvizsgáljuk: googletest
-\end{frame}
+% \section{Dióhéjban a tesztelésről}
+% 
+% \begin{frame}
+%   Tesztelés célja: a hibákat megtalálni üzembe helyezés előtt
+%   \vfill
+%   Tesztelés alapelvei
+%   \begin{enumerate}
+%     \item A tesztelés bizonyos hibák jelenlétét jelezheti (ha nem jelzi, az nem jelent automatikusan hibamentességet)
+%     \item Nem lehetséges kimerítő teszt (a hangsúly a magas kockázatú részeken van)
+%     \item Korai teszt (minél hamarabb találjuk meg a hibát, annál olcsóbb javítani)
+%     \item Hibák csoportosulása (azokra a modulokra/bemenetekre kell tesztelni, amelyre a legvalószínűbben hibás a szoftver)
+%     \item Féregirtó paradoxon (a tesztesetek halmazát időnként bővíteni kell, mert ugyanazokkal a tesztekkel nem fedhetünk fel 
+% több hibát)
+%     \item Körülmények (tesztelés alapossága függ a felhasználás helyétől, a rendelkezésre álló időtől, stb.)
+%     \item A hibátlan rendszer téveszméje (A megrendelő elsősorban az igényeinek megfelelő szoftvert szeretne, és csak 
+% másodsorban hibamenteset; verifikáció vs. validáció)
+%   \end{enumerate}
+% \end{frame}
+% 
+% \begin{frame}
+%   Tesztelési technikák
+%   \begin{description}[mm]
+%     \item[Fekete dobozos (black-box, specifikáció alapú)] \hfill\\ A tesztelő nem látja a forrást, de a specifikációt igen, és 
+% hozzáfér a futtatható szoftverhez. Összehasonlítjuk a bemenetekre adott kimeneteket az elvárt kimenetekkel.
+%     \item[Fehér dobozos (white-box, strukturális teszt)] \hfill\\ Kész struktúrákat tesztelünk, pl.:
+%     \begin{itemize}
+%       \item kódsorok,
+%       \item elágazások,
+%       \item metódusok,
+%       \item osztályok,
+%       \item funkciók,
+%       \item modulok.
+%     \end{itemize}
+%     Lefedettség: a struktúra hány \%-át tudjuk tesztelni a tesztesetekkel?\\
+%     Egységteszt (unit test): a metódusok struktúra tesztje.
+%   \end{description}
+% \end{frame}
+% 
+% \begin{frame}
+%   A tesztelés szintjei:
+%   \begin{enumerate}
+%     \item komponensteszt (egy komponens tesztelése)
+%     \begin{enumerate}
+%       \item egységteszt
+%       \item modulteszt
+%     \end{enumerate}
+%     \item integrációs teszt (kettő vagy több komponens együttműködése)
+%     \item rendszerteszt (minden komponens együtt)
+%     \item átvételi teszt (kész rendszer)
+%   \end{enumerate}
+% \end{frame}
+% 
+% \begin{frame}
+%   Kik végzik a tesztelést?
+%   \begin{itemize}
+%     \item[1-3] Fejlesztő cég
+%     \item[4] Felhasználók
+%   \end{itemize}
+%   Komponensteszt
+%   \begin{itemize}
+%     \item fehér dobozos teszt
+%     \item egységteszt
+%     \begin{itemize}
+%       \item bemenet $\to$ kimenet vizsgálata
+%       \item nem lehet mellékhatása
+%       \item regressziós teszt: módosítással elronthattunk valamit, ami eddig jó volt $\to$ megismételt egységtesztek
+%     \end{itemize}
+%     \item modulteszt
+%     \begin{itemize}
+%       \item nem funkcionális tulajdonságok: sebesség, memóriaszivárgás (memory leak), szűk keresztmetszetek (bottleneck)
+%     \end{itemize}
+%   \end{itemize}
+% \end{frame}
+% 
+% \begin{frame}
+%   Integrációs teszt
+%   \begin{itemize}
+%     \item Komponensek közötti interfészek ellenőrzése, pl.
+%     \begin{itemize}
+%       \item komponens - komponens (egy rendszer komponenseinek együttműködése)
+%       \item rendszer - rendszer (pl. OS és a fejlesztett rendszer között)
+%     \end{itemize}
+%     \item Jellemző hibaokok: komponenseket eltérő csapatok fejlesztik, elégtelen kommunikáció
+%     \item Kockázatok csökkentése: mielőbbi integrációs tesztekkel
+%   \end{itemize}
+% \end{frame}
+% 
+% \begin{frame}
+%   Rendszerteszt: a termék megfelel-e a
+%   \begin{itemize}
+%     \item követelmény specifikációnak,
+%     \item funkcionális specifikációnak,
+%     \item rendszertervnek.
+%   \end{itemize}
+%   Gyakran fekete dobozos, külső cég végzi (elfogulatlanság)\\
+%   Leendő futtatási környezet imitációja
+% \end{frame}
+% 
+% \begin{frame}
+%   Átvételi teszt, fajtái:
+%   \begin{itemize}
+%     \item alfa: kész termék tesztelése a fejlesztőnél, de nem általa (pl. segédprogramok)
+%     \item béta: szűk végfelhasználói csoport
+%     \item felhasználói átvételi teszt: minden felhasználó használja, de nem éles termelésben. Jellemző a környezetfüggő hibák 
+% megjelenése (pl. sebesség)
+%     \item üzemeltetői átvételi teszt: rendszergazdák végzik, biztonsági mentés, helyreállítás, stb. helyesen működnek-e
+%   \end{itemize}
+% \end{frame}
+% 
+% \section{C++ egységtesztelés}
+% 
+% \begin{frame}
+%   Rengeteg C++ egységteszt keretrendszerből lehet választani:
+%   \begin{itemize}
+%     \item \hiv{\href{https://en.wikipedia.org/wiki/List\_of\_unit\_testing\_frameworks\#C++}{Wiki oldal}}
+%     \item \hiv{\href{http://gamesfromwithin.com/exploring-the-c-unit-testing-framework-jungle}%
+%       {Exploring the C++ Unit Testing Framework Jungle}}
+%     \item \hiv{\href{https://accu.org/index.php/journals/1326}{C++ Unit Test Frameworks}}
+%   \end{itemize}
+%   \vfill
+%   Részletesen megvizsgáljuk: googletest
+% \end{frame}
 
 \section{googletest}
 
@@ -797,8 +797,57 @@ karakterlánc tartalma a kis- és nagybetűk eltérését figyelmen kívül hagy
   \end{exampleblock}
 \end{frame}
 
+\begin{frame}
+  Vegyük észre, hogy a tesztünkben egyre többször ismétlődnek részek:
+  \begin{exampleblock}{\textattachfile{10/matrix10test.cpp}{10/matrix10test.cpp}}
+    \tiny
+    \lstinputlisting[style=cpp,linerange={76-80},numbers=left,firstnumber=76]{10/matrix10test.cpp}
+    \lstinputlisting[style=cpp,linerange={88-92},numbers=left,firstnumber=88]{10/matrix10test.cpp}
+    \lstinputlisting[style=cpp,linerange={96-100},numbers=left,firstnumber=96]{10/matrix10test.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\newcounter{fixtures}
+
+\begin{frame}
+  Megoldás: teszt \kiemel{fixture}-ök ($\approx$alkatrész) használata
+  \begin{enumerate}
+    \item Származtassunk le egy osztályt a \texttt{::testing::Test}-ből! Ha az \texttt{Osztaly}-t szeretnénk tesztelni, legyen 
+a neve \texttt{OsztalyTest}!
+    \item Deklaráljuk a többször használt tagokat! Legyenek védettek, hogy a leszármazottakból is használhatók legyenek!
+    \item A tagokat inicializáljuk az alapértelmezett konstruktorban vagy a (felüldefiniált) \texttt{SetUp()} tagfüggvényben!
+    \item Ha szükséges, készítsünk destruktort vagy (felüldefiniált) \texttt{TearDown()} tagfüggvényt az 
+erőforrások felszabadítására!
+    \item Ha szükséges, írjunk függvényeket, amiket több teszteset is hívhat!
+    \setcounter{fixtures}{\theenumi}
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \begin{enumerate}
+    \setcounter{enumi}{\thefixtures}
+    \item A tesztesetek definiálásakor a \texttt{TEST} helyett használjuk a \texttt{TEST\_F} makrót!
+    \item A tesztkészlet neve egyezzen meg a fixture osztály nevével (\texttt{OsztalyTest})!
+  \end{enumerate}
+  \vfill
+  Megjegyzések
+  \begin{itemize}
+    \item Az osztálynak már a tesztesetek makrói előtt definiáltnak kell lennie.
+    \item Könnyű elgépelni a \texttt{SetUp()} és \texttt{TearDown()} függvények neveit, használjuk az \texttt{override} 
+kulcsszót (C++11)!
+    \item Minden egyes tesztesethez új példány készül a fixture-ből (nem ,,interferálnak'' a tesztesetek), majd:\\ 
+alapértelmezett konstruktor $\to$ \texttt{SetUp()} $\to$ \texttt{TEST\_F} $\to$ \texttt{TearDown()} $\to$ destruktor.
+  \end{itemize}
+\end{frame}
+
+% FAQ alapján mikor érdemes konstruktort/SetUp-ot használni, majd jöhet a minta kód
+% 
+https://github.com/google/googletest/blob/master/googletest/docs/faq.md#should-i-use-the-constructordestructor-of-the-test-fixtu 
+re-or-setupteardown
+
 % ugyanazokat a vektorokat hoztam létre többször a különböző tesztekhez: ezt eliminálni kellene (fixture, setup, teardown)
 % véletlenszerűen generált mtx, intervallum-hiba, tesztismétlések
+% kivételek ellenőrzése, death tesztek
 
 \section{Források}
 
