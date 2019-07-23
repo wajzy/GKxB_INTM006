@@ -5,15 +5,15 @@
 
 class MatrixTest : public ::testing::Test {
   protected:
-    szeMatrix::Matrix<double>* dbl2by2;
+    szeMatrix::Matrix<double>* mtx2by2;
     const char* expectedStr = "1\t1\t\n1\t1\t\n";
     void SetUp() override {
       std::vector<std::vector<double>> vec2by2;
       vec2by2.resize(2, std::vector<double>(2, 1.));
-      dbl2by2 = new szeMatrix::Matrix<double>(vec2by2);
+      mtx2by2 = new szeMatrix::Matrix<double>(vec2by2);
     }
     void TearDown() override {
-      delete dbl2by2;
+      delete mtx2by2;
     }
 };
 
@@ -89,18 +89,18 @@ TEST(MulTest, rounding) {
 
 TEST_F(MatrixTest, print) {
   testing::internal::CaptureStdout();
-  dbl2by2->print();
+  mtx2by2->print();
   std::string output = testing::internal::GetCapturedStdout();
   ASSERT_STREQ(expectedStr, output.c_str());
 }
 
 TEST_F(MatrixTest, toString) {
   std::string expected = expectedStr;
-  ASSERT_EQ(expected, dbl2by2->toString());
+  ASSERT_EQ(expected, mtx2by2->toString());
 }
 
 TEST_F(MatrixTest, toCString) {
-  ASSERT_STREQ(expectedStr, dbl2by2->toCString());
+  ASSERT_STREQ(expectedStr, mtx2by2->toCString());
 }
 
 int main(int argc, char **argv) {

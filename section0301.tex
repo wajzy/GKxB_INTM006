@@ -1,0 +1,319 @@
+\begin{frame}
+  A googletest főbb tulajdonságai
+  \begin{itemize}
+    \item platformfüggetlen (Linux, Windows, Mac)
+    \item független és megismételhető tesztek
+    \item struktúrálható tesztek (teszt program $\to$ teszt csomag $\to$ teszteset)
+    \item informatív
+    \item leveszi a tesztelés technikai részének terhét a tesztelőről
+    \item gyors (megosztott erőforrások)
+    \item könnyen tanulható (xUnit architektúra)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  Telepítés (Ubuntu 18.04 LTS)
+  \begin{description}[m]
+    \item[\texttt{sudo apt install libgtest-dev}] \hfill \\ Teszt keretrendszer forrásainak beszerzése.
+    \item[\texttt{sudo apt install cmake}] \hfill \\ Ezzel végezzük a forráskódok automatizált fordítását.
+    \item[\texttt{cd /usr/src/gtest}] \hfill \\ Ebben a mappában találhatóak a források.
+    \item[\texttt{sudo cmake CMakeLists.txt}] \hfill \\ Összeállító (build) környezet előkészítése.
+    \item[\texttt{sudo make}] \hfill \\ Összeállítás indítása.
+  \end{description}
+\end{frame}
+
+\begin{frame}
+  \begin{description}[m]
+    \item[\texttt{sudo ln -st /usr/lib/ /usr/src/gtest/libgtest.a}]
+    \item[\texttt{sudo ln -st /usr/lib/ /usr/src/gtest/libgtest\_main.a}] \hfill \\ Szimbolikus hivatkozások létrehozása.
+  \end{description}
+  \vfill
+  Feladat
+  \begin{itemize}
+    \item[] Készítsünk mátrixműveleteket megvalósító osztályt, ami elsőként egy mátrixszorzást valósít meg.
+    \item[] Az $A[a_{i,j}]_{m\times{n}}$ és $B[b_{i,j}]_{n\times{p}}$mátrixok
+szorzatán azt a $C[c_{i,j}]_{m\times{p}}$ mátrixot értjük, amelyre $c_{i,j} =
+a_{i,1}\cdot{b}_{1,j} + a_{i,2}\cdot{b}_{2,j} + \dots + a_{i,n}\cdot{b}_{n,j} =
+\sum_{k=1}^{n}a_{i,k}\cdot{b}_{k,j}$ 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{01/matrix01.h}{01/matrix01.h}}
+    \footnotesize
+    \lstinputlisting[style=cpp,linerange={1-13},numbers=left,firstnumber=1]{01/matrix01.h}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{01/matrix01.h}{01/matrix01.h}}
+    \lstinputlisting[style=cpp,linerange={14-19},numbers=left,firstnumber=14]{01/matrix01.h}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{01/matrix01.h}{01/matrix01.h}}
+    \lstinputlisting[style=cpp,linerange={21-29},numbers=left,firstnumber=21]{01/matrix01.h}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{01/matrix01.h}{01/matrix01.h}}
+    \footnotesize
+    \lstinputlisting[style=cpp,linerange={31-43},numbers=left,firstnumber=31]{01/matrix01.h}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{01/matrix01.h}{01/matrix01.h}}
+    \small
+    \lstinputlisting[style=cpp,linerange={45-56},numbers=left,firstnumber=45]{01/matrix01.h}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{01/example01.cpp}{01/example01.cpp}}
+    \small
+    \lstinputlisting[style=cpp,linerange={1-13},numbers=left,firstnumber=1]{01/example01.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{exampleblock}{\textattachfile{01/example01.cpp}{01/example01.cpp}}
+    \small
+    \lstinputlisting[style=cpp,linerange={14-21},numbers=left,firstnumber=14]{01/example01.cpp}
+  \end{exampleblock}
+  \begin{block}{Kimenet}
+    \begin{verbatim}
+50      50      50
+90      90      90
+130     130     130
+\end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  Készítsünk az \texttt{example01.cpp} alapján googletest alapú tesztprogramot!
+  \begin{exampleblock}{\textattachfile{01/matrix01test.cpp}{01/matrix01test.cpp}}
+    \footnotesize
+    \lstinputlisting[style=cpp,linerange={1-12},numbers=left,firstnumber=1]{01/matrix01test.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{01/matrix01test.cpp}{01/matrix01test.cpp}}
+    \lstinputlisting[style=cpp,linerange={13-20},numbers=left,firstnumber=13]{01/matrix01test.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{01/matrix01test.cpp}{01/matrix01test.cpp}}
+    \footnotesize
+    \lstinputlisting[style=cpp,linerange={21-33},numbers=left,firstnumber=21]{01/matrix01test.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{01/CMakeLists.txt}{01/CMakeLists.txt}}
+    \footnotesize
+    \lstinputlisting[style=cpp,linerange={1-1},numbers=left,firstnumber=1]{01/CMakeLists.txt}
+    \lstinputlisting[style=cpp,linerange={14-21},numbers=left,firstnumber=14]{01/CMakeLists.txt}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{description}[m]
+    \footnotesize
+    \item[\texttt{cmake CMakeLists.txt}] \hfill \\ Összeállító (build) környezet beállítása.
+    \item[\texttt{make}] \hfill \\ Összeállítás indítása.
+    \item[\texttt{./runTests}] \hfill \\ Tesztprogram indítása.
+  \end{description}
+  \begin{block}{Kimenet}
+    \scriptsize
+    \begin{verbatim}
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from MulTest
+[ RUN      ] MulTest.meaningful
+[       OK ] MulTest.meaningful (0 ms)
+[----------] 1 test from MulTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+\end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \begin{description}[m]
+    \item[Teszteset (test case)] \hfill \\ "A set of preconditions, inputs, actions (where applicable), %
+      expected results and postconditions, developed based on test conditions."\\
+      (meaningful, ld. \texttt{matrix01test.ccp} 5. sor)
+    \item[Tesztkészlet (test suite)] \hfill \\ "A set of test cases or test procedures to be executed in a specific test cycle."\\
+      (MulTest, ld. \texttt{matrix01test.ccp} 5. sor)
+    \item[Tesztprogram (test program)] \hfill \\ Egy vagy több tesztkészletet foglal magába.
+  \end{description}
+  Sajnos a googletest nevezéktana következetlen: \medskip\\
+  \begin{tabular}{ll}
+    \textbf{googletest} & \textbf{ISTQB}\\\hline
+    teszt (test) & teszteset\\
+    teszteset (test case) & tesztkészlet
+  \end{tabular}
+\end{frame}
+
+\begin{frame}
+  \begin{description}[m]
+    \item[Assertion ($\approx$ állítás, követelés)] Ellenőrizzük valamely elvárásunk teljesülését $\to$ siker (success), %
+      nem végzetes hiba (nonfatal failure), végzetes hiba (fatal failure).\\
+      Makrók:
+      \begin{description}[m]
+        \item[\texttt{EXPECT\_*}] nem végzetes hibát generál, ajánlott (több hiba jelezhető egyszerre)
+        \item[\texttt{ASSERT\_*}] végzetes hibát generál, azonnal leállítja a tesztesetet (nincs értelme a folytatásnak; pl. ha két mátrix nem azonos méretű, nincs értelme az elemeiket összehasonlítgatni). \kiemel{Erőforrások felszabadítása, takarítás is elmarad!}
+      \end{description}
+  \end{description}
+\end{frame}
+
+\begin{frame}
+  Rontsuk el a kódot! (,,Elfelejtjük'' összegezni a szorzatokat.)
+  \begin{exampleblock}{\textattachfile{02/matrix02.h}{02/matrix02.h} %
+    (\textattachfile{02/matrix02test.cpp}{02/matrix02test.cpp}, %
+    \textattachfile{02/CMakeLists.txt}{02/CMakeLists.txt})}
+    \lstinputlisting[style=cpp,linerange={45-51},numbers=left,firstnumber=45]{02/matrix02.h}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{block}{Kimenet}
+    \footnotesize
+    \begin{verbatim}
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from MulTest
+[ RUN      ] MulTest.meaningful
+/home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/02/matrix02test.cpp:25: Failure
+      Expected: expected[row][col]
+      Which is: 50
+To be equal to: multiplied.get(row, col)
+      Which is: 0
+...
+\end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \footnotesize
+  \begin{block}{Kimenet}
+    \begin{verbatim}
+...
+/home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/02/matrix02test.cpp:25: Failure
+      Expected: expected[row][col]
+      Which is: 130
+To be equal to: multiplied.get(row, col)
+      Which is: 0
+[  FAILED  ] MulTest.meaningful (1 ms)
+[----------] 1 test from MulTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] MulTest.meaningful
+
+ 1 FAILED TEST
+\end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  Most rontsuk el másképp a kódot! (Túl nagy lesz az eredmény mátrix.)
+  \begin{exampleblock}{\textattachfile{03/matrix03.h}{03/matrix03.h} %
+    (\textattachfile{03/CMakeLists.txt}{03/CMakeLists.txt})}
+    \lstinputlisting[style=cpp,linerange={40-44},numbers=left,firstnumber=40]{03/matrix03.h}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{03/matrix03test.cpp}{03/matrix03test.cpp}}
+    \footnotesize
+    \lstinputlisting[style=cpp,linerange={21-33},numbers=left,firstnumber=21]{03/matrix03test.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{block}{Kimenet}
+    \tiny
+    \begin{verbatim}
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from MulTest
+[ RUN      ] MulTest.meaningful
+/home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/03/matrix03test.cpp:21: Failure
+      Expected: expected.size()
+      Which is: 3
+To be equal to: multiplied.getRowCount()
+      Which is: 6
+A sorok szama elter! Elvart: 3, kapott: 6
+[  FAILED  ] MulTest.meaningful (0 ms)
+[----------] 1 test from MulTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] MulTest.meaningful
+
+ 1 FAILED TEST
+\end{verbatim}
+  \end{block}
+  \begin{itemize}
+    \item Az \texttt{ASSERT\_EQ} leállította a tesztesetet.
+    \item Testreszabott hibaüzeneteket jelenítettünk meg.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{center}
+    Elemi követelmények
+    \medskip\\
+    \begin{tabular}{lll}
+      \textbf{Végzetes hibákhoz} & \textbf{Nem végzetes hibákhoz} & \textbf{Követelmény}\\ \hline
+      ASSERT\_TRUE(\emph{feltétel}) & EXPECT\_TRUE(\emph{feltétel}) & \emph{feltétel} igaz értékű\\
+      ASSERT\_FALSE(\emph{feltétel}) & EXPECT\_FALSE(\emph{feltétel}) & \emph{feltétel} hamis értékű
+    \end{tabular}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \begin{center}
+    Relációs követelmények
+    \medskip\\
+    \begin{tabular}{lll}
+      \textbf{Végzetes hibákhoz} & \textbf{Nem végzetes hibákhoz} & \textbf{Követelmény}\\ \hline
+      ASSERT\_EQ(\emph{val1}, \emph{val2}); & EXPECT\_EQ(\emph{val1}, \emph{val2}); & \emph{val1} == \emph{val2}\\
+      ASSERT\_NE(\emph{val1}, \emph{val2}); & EXPECT\_NE(\emph{val1}, \emph{val2}); & \emph{val1} != \emph{val2}\\
+      ASSERT\_LT(\emph{val1}, \emph{val2}); & EXPECT\_LT(\emph{val1}, \emph{val2}); & \emph{val1} < \emph{val2}\\
+      ASSERT\_LE(\emph{val1}, \emph{val2}); & EXPECT\_LE(\emph{val1}, \emph{val2}); & \emph{val1} <= \emph{val2}\\
+      ASSERT\_GT(\emph{val1}, \emph{val2}); & EXPECT\_GT(\emph{val1}, \emph{val2}); & \emph{val1} > \emph{val2}\\
+      ASSERT\_GE(\emph{val1}, \emph{val2}); & EXPECT\_GE(\emph{val1}, \emph{val2}); & \emph{val1} >= \emph{val2}
+    \end{tabular}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  Megjegyzések
+  \begin{itemize}
+    \item A feltüntetett operátoroknak definiáltnak kell lenniük \emph{val1} és \emph{val2} között. Lehetőségeink:
+    \begin{enumerate}
+      \item Felültöltjük az operátorokat.
+      \item Az \{ASSERT,EXPECT\}\_\{TRUE,FALSE\} makrókat használjuk, de ezek nem írják a kimenetre az elvárt/kapott 
+értékeket.
+    \end{enumerate}
+    \item A paraméterek egyszer lesznek kiértékelve, de nem definiált sorrendben (mellékhatások).
+    \item Az \{ASSERT,EXPECT\}\_EQ makrók mutatók esetén a címeket hasonlítja össze, nem az ott lévő tartalmat! C-stílusú 
+karakterláncok kezeléséhez külön makrók léteznek. (\texttt{string} objektumokkal nincs gond.)
+    \item C++11 szabványnak megfelelő fordító esetén \texttt{NULL} helyett \texttt{nullptr}-t használjunk 
+(utóbbi nem konvertálható implicit módon \texttt{int}-té)!
+    \item Lebegőpontos számok összehasonlításakor kerekítési hibák adódhatnak.
+  \end{itemize}
+\end{frame}

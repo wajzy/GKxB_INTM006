@@ -1,0 +1,73 @@
+\begin{frame}
+  Próbáljuk meg a mátrixok elemenkénti összehasonlítása helyett a teljes mátrixokat összehasonlítani!
+  \begin{exampleblock}{\textattachfile{07/matrix07test.cpp}{07/matrix07test.cpp} %
+    (\textattachfile{07/matrix07.h}{07/matrix07.h}, %
+     \textattachfile{07/CMakeLists.txt}{07/CMakeLists.txt})}
+    \scriptsize
+    \lstinputlisting[style=cpp,linerange={31-43},numbers=left,firstnumber=31]{07/matrix07test.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{07/matrix07test.cpp}{07/matrix07test.cpp}}
+    \lstinputlisting[style=cpp,linerange={44-51},numbers=left,firstnumber=44]{07/matrix07test.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{block}{Kimenet}
+    \footnotesize
+    \begin{verbatim}
+wajzy@wajzy-notebook:~/Dokumentumok/gknb_intm006/GKxB_INTM006/07$ make
+...
+/home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/07/matrix07test.cpp:50:3: 
+  required from here
+/usr/include/gtest/gtest.h:1325:16: error: no match for ‘operator==’ (operand 
+  types are ‘const szeMatrix::Matrix<double>’ and 
+‘const szeMatrix::Matrix<double>’)
+   if (expected == actual) {
+                ^
+...
+\end{verbatim}
+  \end{block}
+  \vfill
+  Probléma: az 50. sor \texttt{ASSERT\_EQ(mexp, multiplied);} utasítása feltételezi az == operátor felültöltését a 
+\texttt{Matrix} osztályhoz.
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{08/matrix08.h}{08/matrix08.h} %
+    (\textattachfile{08/matrix08test.cpp}{08/matrix08test.cpp}, %
+     \textattachfile{08/CMakeLists.txt}{08/CMakeLists.txt})}
+    \footnotesize
+    \lstinputlisting[style=cpp,linerange={5-6},numbers=left,firstnumber=5]{08/matrix08.h}
+    \lstinputlisting[style=cpp,linerange={10-10},numbers=left,firstnumber=10]{08/matrix08.h}
+    \lstinputlisting[style=cpp,linerange={19-21},numbers=left,firstnumber=19]{08/matrix08.h}
+    \lstinputlisting[style=cpp,linerange={58-61},numbers=left,firstnumber=58]{08/matrix08.h}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{block}{Kimenet}
+    \scriptsize
+    \begin{verbatim}
+wajzy@wajzy-notebook:~/Dokumentumok/gknb_intm006/GKxB_INTM006/08$ make
+[100%] Built target runTests
+wajzy@wajzy-notebook:~/Dokumentumok/gknb_intm006/GKxB_INTM006/08$ ./runTests 
+[==========] Running 3 tests from 1 test case.
+[----------] Global test environment set-up.
+[----------] 3 tests from MulTest
+[ RUN      ] MulTest.meaningful
+[       OK ] MulTest.meaningful (0 ms)
+[ RUN      ] MulTest.equality
+[       OK ] MulTest.equality (1 ms)
+[ RUN      ] MulTest.rounding
+[       OK ] MulTest.rounding (0 ms)
+[----------] 3 tests from MulTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 3 tests from 1 test case ran. (1 ms total)
+[  PASSED  ] 3 tests.
+\end{verbatim}
+  \end{block}
+\end{frame}

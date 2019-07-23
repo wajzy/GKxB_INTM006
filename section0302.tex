@@ -1,0 +1,124 @@
+\begin{frame}
+  Készítsünk lebegőpontos számokból álló mátrixokat, majd teszteljük a szorzást ismét!
+  \begin{exampleblock}{\textattachfile{04/matrix04test.cpp}{04/matrix04test.cpp} %
+    (\textattachfile{04/matrix04.h}{04/matrix04.h}, %
+     \textattachfile{04/CMakeLists.txt}{04/CMakeLists.txt})}
+    \small
+    \lstinputlisting[style=cpp,linerange={31-41},numbers=left,firstnumber=31]{04/matrix04test.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{04/matrix04test.cpp}{04/matrix04test.cpp}}
+    \small
+    \lstinputlisting[style=cpp,linerange={42-52},numbers=left,firstnumber=42]{04/matrix04test.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{block}{Kimenet}
+    \scriptsize
+    \begin{verbatim}
+...
+[ RUN      ] MulTest.rounding
+/home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/04/matrix04test.cpp:49: Failure
+Value of: multiplied.get(row, col)
+  Actual: 1.41421
+Expected: expected[row][col]
+Which is: 1.41421
+...
+/home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/04/matrix04test.cpp:49: Failure
+Value of: multiplied.get(row, col)
+  Actual: 0.333333
+Expected: expected[row][col]
+Which is: 0.333333
+[  FAILED  ] MulTest.rounding (0 ms)
+...
+\end{verbatim}
+  \end{block}
+  A kerekítési hibák érzékelhetetlenek a kimeneten és a teszt sikertelen.
+\end{frame}
+
+\begin{frame}
+  Próbálkozzunk a beépített, lebegőpontos számokat összehasonlító makrókkal!
+  \begin{exampleblock}{\textattachfile{05/matrix05test.cpp}{05/matrix05test.cpp} %
+    (\textattachfile{05/matrix05.h}{05/matrix05.h}, %
+     \textattachfile{05/CMakeLists.txt}{05/CMakeLists.txt})}
+    \footnotesize
+    \lstinputlisting[style=cpp,linerange={47-52},numbers=left,firstnumber=47]{05/matrix05test.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{block}{Kimenet}
+    \scriptsize
+    \begin{verbatim}
+...
+[ RUN      ] MulTest.rounding
+/home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/05/matrix05test.cpp:50: Failure
+Value of: multiplied.get(row, col)
+  Actual: 1.4142135623730951
+Expected: expected[row][col]
+Which is: 1.414213562
+...
+/home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/05/matrix05test.cpp:50: Failure
+Value of: multiplied.get(row, col)
+  Actual: 0.33333333333333331
+Expected: expected[row][col]
+Which is: 0.33333333300000001
+[  FAILED  ] MulTest.rounding (0 ms)
+...
+\end{verbatim}
+  \end{block}
+  Most már látszik, hogy az értékek közötti különbség nagyobb, mint %
+  \hiv{\href{https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/}{4 ULP}} %
+  (Units in the Last Place), ezért tekinti őket a teszt különbözőnek.
+\end{frame}
+
+\begin{frame}
+  Növeljük meg a számok közötti legnagyobb megengedett eltérést!
+  \begin{exampleblock}{\textattachfile{06/matrix06test.cpp}{06/matrix06test.cpp} %
+    (\textattachfile{06/matrix06.h}{06/matrix06.h}, %
+     \textattachfile{06/CMakeLists.txt}{06/CMakeLists.txt})}
+    \footnotesize
+    \lstinputlisting[style=cpp,linerange={47-53},numbers=left,firstnumber=47]{06/matrix06test.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{block}{Kimenet}
+    \scriptsize
+    \begin{verbatim}
+[==========] Running 2 tests from 1 test case.
+[----------] Global test environment set-up.
+[----------] 2 tests from MulTest
+[ RUN      ] MulTest.meaningful
+[       OK ] MulTest.meaningful (0 ms)
+[ RUN      ] MulTest.rounding
+[       OK ] MulTest.rounding (0 ms)
+[----------] 2 tests from MulTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test case ran. (1 ms total)
+[  PASSED  ] 2 tests.
+\end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \begin{center}
+    Lebegőpontos számokkal szemben támasztható követelmények
+    \medskip\\
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{llp{0.3\textwidth}}
+      \textbf{Végzetes hibákhoz} & \textbf{Nem végzetes hibákhoz} & \textbf{Követelmény}\\ \hline
+      ASSERT\_FLOAT\_EQ(\emph{val1}, \emph{val2}); & EXPECT\_FLOAT\_EQ(\emph{val1}, \emph{val2}); & \emph{float} típusú 
+értékek 4 ULP-n belül\\
+      ASSERT\_DOUBLE\_EQ(\emph{val1}, \emph{val2}); & EXPECT\_DOUBLE\_EQ(\emph{val1}, \emph{val2}); & \emph{double} típusú 
+értékek 4 ULP-n belül\\
+      ASSERT\_NEAR(\emph{val1}, \emph{val2}, \emph{abs\_error}); & EXPECT\_NEAR(\emph{val1}, \emph{val2}, \emph{abs\_error}); & 
+a két érték különbségének abszolút értéke nem nagyobb \emph{abs\_error}-nál\\
+    \end{tabular}
+    }
+  \end{center}
+\end{frame}

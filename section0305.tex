@@ -1,0 +1,110 @@
+\begin{frame}
+  Vegyük észre, hogy a tesztünkben egyre többször ismétlődnek részek:
+  \begin{exampleblock}{\textattachfile{10/matrix10test.cpp}{10/matrix10test.cpp}}
+    \tiny
+    \lstinputlisting[style=cpp,linerange={76-80},numbers=left,firstnumber=76]{10/matrix10test.cpp}
+    \lstinputlisting[style=cpp,linerange={88-92},numbers=left,firstnumber=88]{10/matrix10test.cpp}
+    \lstinputlisting[style=cpp,linerange={96-100},numbers=left,firstnumber=96]{10/matrix10test.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\newcounter{fixtures}
+
+\begin{frame}
+  Megoldás: teszt \kiemel{fixture}-ök ($\approx$alkatrész) használata
+  \begin{enumerate}
+    \item Származtassunk le egy osztályt a \texttt{::testing::Test}-ből! Ha az \texttt{Osztaly}-t szeretnénk tesztelni, legyen 
+a neve \texttt{OsztalyTest}!
+    \item Deklaráljuk a többször használt tagokat! Legyenek védettek, hogy a leszármazottakból is használhatók legyenek!
+    \item A tagokat inicializáljuk az alapértelmezett konstruktorban vagy a (felüldefiniált) \texttt{SetUp()} tagfüggvényben!
+    \item Ha szükséges, készítsünk destruktort vagy (felüldefiniált) \texttt{TearDown()} tagfüggvényt az 
+erőforrások felszabadítására!
+    \item Ha szükséges, írjunk függvényeket, amiket több teszteset is hívhat!
+    \setcounter{fixtures}{\theenumi}
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \begin{enumerate}
+    \setcounter{enumi}{\thefixtures}
+    \item A tesztesetek definiálásakor a \texttt{TEST} helyett használjuk a \texttt{TEST\_F} makrót!
+    \item A tesztkészlet neve egyezzen meg a fixture osztály nevével (\texttt{OsztalyTest})!
+  \end{enumerate}
+  \vfill
+  Megjegyzések
+  \begin{itemize}
+    \item Az osztálynak már a tesztesetek makrói előtt definiáltnak kell lennie.
+    \item Könnyű elgépelni a \texttt{SetUp()} és \texttt{TearDown()} függvények neveit, használjuk az \texttt{override} 
+kulcsszót (C++11)!
+    \item Minden egyes tesztesethez új példány készül a fixture-ből (nem ,,interferálnak'' a tesztesetek), majd:\\ 
+alapértelmezett konstruktor $\to$ \texttt{SetUp()} $\to$ \texttt{TEST\_F} $\to$ \texttt{TearDown()} $\to$ destruktor.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  Mikor és miért érdemes konstruktort/destruktort használni?
+  \begin{itemize}
+    \item A \texttt{const} minősítővel ellátott tagváltozó csak a konstruktort követő inicializátor listával inicializálható. Jó ötlet
+    a véletlen módosítások meggátolására.
+    \item Ha a fixture osztályból származtatunk, az ős(ök) konstruktorának/destruktorának hívása mindenképpen végbemegy a megfelelő sorrendben. A \texttt{SetUp()/TearDown()} esetében erre a programozónak kell ügyelnie.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  Mikor és miért érdemes a \texttt{SetUp()/TearDown()} függvényeket használni?
+  \begin{itemize}
+    \item A C++ nem engedi meg virtuális függvények hívását a konstruktorokban és destruktorokban, mert elvileg így meghívható lehetne egy inicializálatlan objektum metódusa, és ezt túl körülményes ellenőrizni. (Ha megengedi, akkor is csak az aktuális objektum metódusát hívja.)
+    \item A konstruktorban/destruktorban nem használhatóak az ASSERT\_* makrók. Megoldás:
+    \begin{enumerate}
+      \item \texttt{SetUp()/TearDown()} használata
+      \item Az egész tesztprogramot állítjuk le egy \texttt{abort()} hívással.
+    \end{enumerate}
+    \item Ha a leállási folyamat során kivételek kelethezhetnek, azt a destruktorban nem lehet megbízhatóan lekezelni (definiálatlan viselkedés, akár azonnali programleállással).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{11/matrix11test.cpp}{11/matrix11test.cpp} %
+    (\textattachfile{11/CMakeLists.txt}{11/CMakeLists.txt}, \textattachfile{11/matrix11.h}{11/matrix11.h})}
+    \footnotesize
+    \lstinputlisting[style=cpp,linerange={6-18},numbers=left,firstnumber=6]{11/matrix11test.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{11/matrix11test.cpp}{11/matrix11test.cpp}}
+    \scriptsize
+    \lstinputlisting[style=cpp,linerange={90-104},numbers=left,firstnumber=90]{11/matrix11test.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{block}{Kimenet}
+    \tiny
+    \begin{verbatim}
+wajzy@lenovo:~/Dokumentumok/gknb_intm006/GKxB_INTM006/11$ ./runTests 
+[==========] Running 6 tests from 2 test cases.
+[----------] Global test environment set-up.
+[----------] 3 tests from MulTest
+[ RUN      ] MulTest.meaningful
+[       OK ] MulTest.meaningful (0 ms)
+[ RUN      ] MulTest.equality
+[       OK ] MulTest.equality (0 ms)
+[ RUN      ] MulTest.rounding
+[       OK ] MulTest.rounding (0 ms)
+[----------] 3 tests from MulTest (0 ms total)
+
+[----------] 3 tests from MatrixTest
+[ RUN      ] MatrixTest.print
+[       OK ] MatrixTest.print (0 ms)
+[ RUN      ] MatrixTest.toString
+[       OK ] MatrixTest.toString (0 ms)
+[ RUN      ] MatrixTest.toCString
+[       OK ] MatrixTest.toCString (0 ms)
+[----------] 3 tests from MatrixTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 6 tests from 2 test cases ran. (1 ms total)
+[  PASSED  ] 6 tests.\end{verbatim}
+  \end{block}
+\end{frame}
