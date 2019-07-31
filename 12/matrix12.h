@@ -34,7 +34,8 @@ Matrix<T>::Matrix(int rows, int cols, T min, T max) {
   mtx.resize(rows, std::vector<T>(cols));
   for(int r=0; r<rows; r++) {
     for(int c=0; c<cols; c++) {
-      mtx[r][c] = min+(T)dist(rng)/rng.max()*(max-min);
+      mtx[r][c] = 0.2 + min+(T)dist(rng)/rng.max()*(max-min); // BAD
+      // mtx[r][c] = min+(T)dist(rng)/rng.max()*(max-min); // GOOD
     }
   }
 }

@@ -90,8 +90,18 @@ TEST(MulTest, rounding) {
 TEST(MulTest, randomized) {
   int rows = 2;
   int cols = 3;
-  szeMatrix::Matrix<double> mtxRnd(rows, cols, -3., +3.);
-  
+  double min = -3.;
+  double max = +3.;
+  szeMatrix::Matrix<double> mtxRnd(rows, cols, min, max);
+  ASSERT_EQ(rows, mtxRnd.getRowCount());
+  ASSERT_EQ(cols, mtxRnd.getColCount());
+  for(unsigned r=0; r<rows; r++) {
+    for(unsigned c=0; c<cols; c++) {
+      double val = mtxRnd.get(r, c);
+      EXPECT_GE(max, val);
+      EXPECT_LE(min, val);
+    }
+  }
 }
 
 TEST_F(MatrixTest, print) {

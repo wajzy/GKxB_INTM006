@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="7" failures="1" disabled="0" errors="0" time="0.001" name="AllTests">
+  <testsuite name="MulTest" tests="4" failures="1" disabled="0" errors="0" time="0">
+    <testcase name="randomized" status="run" time="0" classname="MulTest">
+      <failure message="Expected: (max) &gt;= (val), actual: 3 vs 3.10317" type=""><![CDATA[/home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/12/matrix12test.cpp:101
+Expected: (max) >= (val), actual: 3 vs 3.10317]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>
