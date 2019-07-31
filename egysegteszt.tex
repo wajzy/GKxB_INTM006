@@ -29,6 +29,13 @@
 \usepackage{hyperref}
 \usepackage{attachfile}
 \usepackage{multirow}
+% Navigációs pöttyök hozzáadása subsection nélküli fejezetekhez
+\usepackage{remreset}
+\makeatletter
+\@removefromreset{subsection}{section}
+\makeatother
+\setcounter{subsection}{1}
+%%%%%
 \attachfilesetup{color={1.0 0.6 0.0},author={HFM},description={Kattintson duplán a minta %
 megtekintéséhez!},icon=Paperclip}
 \usetheme{Warsaw}
@@ -56,11 +63,11 @@ megtekintéséhez!},icon=Paperclip}
   \titlepage
 \end{frame}
 
-\section{Dióhéjban a tesztelésről}
+\section{Bevezetés}
 
 \input{section01.tex}
 
-\section{C++ egységtesztelés}
+\section{C++}
 
 \begin{frame}
  Rengeteg C++ egységteszt keretrendszerből lehet választani:
@@ -100,7 +107,11 @@ megtekintéséhez!},icon=Paperclip}
 
 \input{section0306.tex}
 
-% kivételek ellenőrzése, death tesztek
+\subsection{Kivételek és haláltesztek}
+
+\input{section0307.tex}
+
+% Integráció IDE-kkel
 
 \section{Források}
 

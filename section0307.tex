@@ -1,0 +1,132 @@
+\begin{frame}
+  Egészítsük ki a konstruktort kivétel dobásával, ha az eredeti vektor sorai nem azonos elemszámúak!
+  \begin{exampleblock}{\textattachfile{13/matrix13.h}{13/matrix13.h} %
+    (\textattachfile{13/CMakeLists.txt}{13/CMakeLists.txt})}
+    \scriptsize
+    \lstinputlisting[style=cpp,linerange={6-16},numbers=left,firstnumber=6]{13/matrix13.h}
+    \lstinputlisting[style=cpp,linerange={26-26},numbers=left,firstnumber=26]{13/matrix13.h}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{13/matrix13.h}{13/matrix13.h}}
+    \scriptsize
+    \lstinputlisting[style=cpp,linerange={41-56},numbers=left,firstnumber=41]{13/matrix13.h}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  Módosítsuk és egészítsük ki tesztünket!
+  \begin{exampleblock}{\textattachfile{13/matrix13test.cpp}{13/matrix13test.cpp}}
+    \scriptsize
+    \lstinputlisting[style=cpp,linerange={20-32},numbers=left,firstnumber=20]{13/matrix13test.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{13/matrix13test.cpp}{13/matrix13test.cpp}}
+    \footnotesize
+    \lstinputlisting[style=cpp,linerange={33-45},numbers=left,firstnumber=33]{13/matrix13test.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{\textattachfile{13/matrix13test.cpp}{13/matrix13test.cpp}}
+    \lstinputlisting[style=cpp,linerange={47-55},numbers=left,firstnumber=47]{13/matrix13test.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{center}
+    Kivételek kiváltásával szemben támasztható követelmények
+    \medskip\\
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{llp{0.3\textwidth}}
+      \textbf{Végzetes hibákhoz} & \textbf{Nem végzetes hibákhoz} & \textbf{Követelmény}\\ \hline
+      ASSERT\_THROW(\emph{statement}, \emph{exception\_type}); & EXPECT\_THROW(\emph{statement}, \emph{exception\_type}); & 
+\emph{statement} hatására \emph{exception\_type} kivételnek kell keletkeznie \\
+      ASSERT\_ANY\_THROW(\emph{statement}); & EXPECT\_ANY\_THROW(\emph{statement}); & \emph{statement} hatására 
+valamilyen kivételnek kell keletkeznie \\
+      ASSERT\_NO\_THROW(\emph{statement}); & EXPECT\_NO\_THROW(\emph{statement}); & \emph{statement} hatására 
+semmilyen kivételnek sem szabad keletkeznie \\
+    \end{tabular}
+    }
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  A haláltesztek (Death Tests) azt ellenőrzik, hogy valamilyen körülmény hatására a program leáll-e. Egészítsük ki a 
+konstruktort úgy, hogy negatív sor- vagy oszlopszám esetén 1 hibakóddal álljon le a program!
+  \begin{exampleblock}{\textattachfile{14/matrix14.h}{14/matrix14.h} %
+    (\textattachfile{14/CMakeLists.txt}{14/CMakeLists.txt})}
+    \small
+    \lstinputlisting[style=cpp,linerange={28-33},numbers=left,firstnumber=28]{14/matrix14.h}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  Ellenőrizzük, hogy a program valóban leáll-e az elvárt módon!
+  \begin{exampleblock}{\textattachfile{14/matrix14test.cpp}{14/matrix14test.cpp}}
+    \small
+    \lstinputlisting[style=cpp,linerange={119-123},numbers=left,firstnumber=119]{14/matrix14test.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \begin{center}
+    Halálteszteket támogató makrók
+    \medskip\\
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{llp{0.3\textwidth}}
+      \textbf{Végzetes hibákhoz} & \textbf{Nem végzetes hibákhoz} & \textbf{Követelmény}\\ \hline
+      ASSERT\_DEATH(\emph{statement}, \emph{matcher}); & EXPECT\_DEATH(\emph{statement}, \emph{matcher}); & \emph{statement} 
+programleállást idéz elő \emph{matcher} üzenettel \\
+      ASSERT\_DEATH\_IF\_SUPPORTED(\emph{statement}, \emph{matcher}); & EXPECT\_DEATH\_IF\_SUPPORTED(\emph{statement}, 
+\emph{matcher}); & Csak akkor ellenőrzi, hogy \emph{statement} 
+programleállást idéz-e elő \emph{matcher} üzenettel, ha a haláltesztek támogatottak \\
+      ASSERT\_EXIT(\emph{statement}, \emph{predicate}, \emph{matcher}); & EXPECT\_EXIT(\emph{statement}, \emph{predicate}, 
+\emph{matcher}); & \emph{statement} 
+programleállást idéz elő \emph{matcher} üzenettel, a kilépési kódot \emph{matcher}-re állítja \\
+    \end{tabular}
+    }
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  Paraméterezés:
+  \begin{description}[mm]
+    \item[\emph{statement}] \hfill\\ A programleálláshoz vezető (egyszerű vagy összetett) utasítás.
+    \item[\emph{predicate}] \hfill\\ Függvény vagy függvény objektum, ami \texttt{int} paramétert vár és \texttt{bool}-t 
+szolgáltat:
+    \begin{itemize}
+      \item \texttt{::testing::ExitedWithCode(exit\_code)} \\ Az elvárt kilépési kódot ellenőrzi.
+      \item \texttt{::testing::KilledBySignal(signal\_number)} \\ Ellenőrzi, hogy a programot az elvárt jelzés szakította-e 
+félbe (Windows-on nem támogatott).
+    \end{itemize}
+  \end{description}
+\end{frame}
+
+\begin{frame}
+  Paraméterezés folyt.:
+  \begin{description}[mm]
+    \item[\emph{matcher}] \hfill\\ A szabvány hibacsatornára írt, elvárt üzenet. Ellenőrizhető:
+    \begin{enumerate}
+      \item 
+\hiv{\href%
+{https://github.com/google/googletest/blob/master/googlemock/docs/cook\_book.md\#using-matchers-in-googletest-assertions}%
+{GMock illesztővel}} (\emph{const std::string\&}-t illeszt)
+      \item 
+\hiv{\href{http://pubs.opengroup.org/onlinepubs/009695399/basedefs/xbd_chap09.html\#tag\_09\_04}%
+{Perl-kompatibilis}} \hiv{\href{https://en.wikipedia.org/wiki/Regular_expression\#POSIX\_basic\_and\_extended}%
+{reguláris kifejezéssel}} (A ,,csupasz'' karakterláncokat \texttt{ContainsRegex(str)}-rel értékelik ki.)
+    \end{enumerate}
+  \end{description}
+  Megjegyzések
+  \begin{itemize}
+    \item A 0 kilépési kóddal leálló programot nem tekintik ,,halott'' programnak. A leállítás általában 
+\texttt{abort()}, \texttt{exit()} hívással vagy egy jelzéssel történik.
+    \item A haláltesztek készletének neve \texttt{DeathTest}-re kell, hogy végződjön 
+(\hiv{\href{https://github.com/google/googletest/blob/master/googletest/docs/advanced.md\#death-tests-and-threads}{részletek}}). 
+Szálbiztos környezet szükséges lehet.
+  \end{itemize}
+\end{frame}
