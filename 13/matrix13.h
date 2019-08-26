@@ -41,7 +41,7 @@ Matrix<T>::Matrix(int rows, int cols, T min, T max) {
 template<class T>
 Matrix<T>::Matrix(std::vector<std::vector<T>> src) {
   bool firstRow = true;
-  int numCols;
+  unsigned numCols;
   for(std::vector<T> row : src) {
     if(firstRow) {
       numCols = row.size();

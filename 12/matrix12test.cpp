@@ -95,8 +95,8 @@ TEST(MulTest, randomized) {
   szeMatrix::Matrix<double> mtxRnd(rows, cols, min, max);
   ASSERT_EQ(rows, mtxRnd.getRowCount());
   ASSERT_EQ(cols, mtxRnd.getColCount());
-  for(unsigned r=0; r<rows; r++) {
-    for(unsigned c=0; c<cols; c++) {
+  for(int r=0; r<rows; r++) {
+    for(int c=0; c<cols; c++) {
       double val = mtxRnd.get(r, c);
       EXPECT_GE(max, val);
       EXPECT_LE(min, val);
