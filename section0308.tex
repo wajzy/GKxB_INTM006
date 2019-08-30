@@ -3,10 +3,19 @@
 \begin{frame}
   \begin{enumerate}
     \item Indítsuk el a Qt Creatort.\\
-      \resizebox{0.4\textheight}{!}{\includegraphics{./qtcreator.png}}
-    \item Készítsünk új projektet az osztályunk működésének kipróbálásához (egyelőre googletest nélkül)! \emph{File $\to$ New File or Project...}
-    \item A dialógusablakban jelöljük meg a \emph{Non-Qt Project}-et majd a \emph{Plain C++ Application}-t! Végül kattintsunk a \emph{Choose...} gombra!\\
-      \resizebox{0.4\textheight}{!}{\includegraphics{./newFileOrProject.png}}
+      \resizebox{0.9\textheight}{!}{\includegraphics{./qtcreator.png}}
+    \setcounter{qt}{\theenumi}
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \begin{enumerate}
+    \setcounter{enumi}{\theqt}
+    \item Készítsünk új projektet az osztályunk működésének kipróbálásához (egyelőre googletest nélkül)! \emph{File $\to$ New 
+File or Project...}
+    \item A dialógusablakban jelöljük meg a \emph{Non-Qt Project}-et majd a \emph{Plain C++ Application}-t! Végül kattintsunk a 
+\emph{Choose...} gombra!\\
+      \resizebox{0.8\textheight}{!}{\includegraphics{./newFileOrProject.png}}
     \setcounter{qt}{\theenumi}
   \end{enumerate}
 \end{frame}
@@ -15,9 +24,7 @@
   \begin{enumerate}
     \setcounter{enumi}{\theqt}
     \item A dialógusablakban adjuk meg a projekt nevét a \emph{Name} mezőben (\texttt{szematrix}), és válasszunk egy mappát, ahová a projektet elhelyezhetjük! Végül lépjünk a következő oldalra (\emph{Next})!\\
-      \resizebox{0.4\textheight}{!}{\includegraphics{./plainCppApplication1.png}}
-    \item Az összeállító rendszer elvileg lehetne \emph{cmake} is, de ezt az IDE nem támogatja teljeskörűen, ezért őrizzük meg az alapértelmezett \emph{qmake}-et, majd lépjünk a következő oldalra!\\
-      \resizebox{0.4\textheight}{!}{\includegraphics{./plainCppApplication2.png}}
+      \resizebox{0.8\textheight}{!}{\includegraphics{./plainCppApplication1.png}}
     \setcounter{qt}{\theenumi}
   \end{enumerate}
 \end{frame}
@@ -25,10 +32,20 @@
 \begin{frame}
   \begin{enumerate}
     \setcounter{enumi}{\theqt}
+    \item Az összeállító rendszer elvileg lehetne \emph{cmake} is, de ezt az IDE nem támogatja teljeskörűen, ezért őrizzük meg 
+az alapértelmezett \emph{qmake}-et, majd lépjünk a következő oldalra!\\
+      \resizebox{0.6\textheight}{!}{\includegraphics{./plainCppApplication2.png}}
     \item A készleteknél (\emph{Kit Selection}) hagyjunk mindent változatlanul!
+    \setcounter{qt}{\theenumi}
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \begin{enumerate}
+    \setcounter{enumi}{\theqt}
     \item A következő oldalon, az \emph{Add to version control...}-nál lehetne beállítani a Git verziókezelőt, de mivel nincs hosszabb távú célunk a projekttel, nem élünk a lehetőséggel.\\
     A dialógusablak alján látszik, hogy létrejön a \emph{qmake} projektleíró fájlja (\texttt{szematrix.pro}) illetve egy helykitöltő forrásszöveg (\texttt{main.cpp}), amit hamarosan lecserélünk.\\
-      \resizebox{0.4\textheight}{!}{\includegraphics{./plainCppApplication4.png}}
+      \resizebox{0.7\textheight}{!}{\includegraphics{./plainCppApplication4.png}}
     \setcounter{qt}{\theenumi}
   \end{enumerate}
 \end{frame}
@@ -58,7 +75,17 @@
     \setcounter{enumi}{\theqt}
     \item Készítsük el a teszt projektet! A \emph{File $\to$ New File or Project...} menüvel megnyíló ablakban most válasszuk az \emph{Other Project}-et, majd az \emph{Auto Test Project}-et!\\
     \item A megnyíló dialógusablak \emph{Name} mezőjébe gépeljük az új projekt nevét: \texttt{matrixteszt}!
-    \item A következő fülön kell kiválasztani a tesztelés eszközét, ami legyen \emph{Googletest}! Bár most erre semmi szükségünk, kénytelenek vagyunk megadni egy helykitöltő teszteset-nevet (\emph{Test case name}, pl. \texttt{case1}) és tesztkészlet-nevet (\emph{Test set name}, pl. \texttt{set1}). Engedélyezzük a C++11-kompatibilis fordítást a jelölőnégyzettel, majd adjuk meg a \emph{googletest} könyvtárát! Őrizzük meg a \emph{qmake} összeállító rendszert!\\
+    \setcounter{qt}{\theenumi}
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \begin{enumerate}
+    \setcounter{enumi}{\theqt}
+    \item A következő fülön kell kiválasztani a tesztelés eszközét, ami legyen \emph{Googletest}! Bár most erre semmi 
+szükségünk, kénytelenek vagyunk megadni egy helykitöltő teszteset-nevet (\emph{Test case name}, pl. \texttt{case1}) és 
+tesztkészlet-nevet (\emph{Test set name}, pl. \texttt{set1}). Engedélyezzük a C++11-kompatibilis fordítást a jelölőnégyzettel, 
+majd adjuk meg a \emph{googletest} könyvtárát! Őrizzük meg a \emph{qmake} összeállító rendszert!\\
     \resizebox{\textheight}{!}{\includegraphics{./autoTestProject.png}}
     \setcounter{qt}{\theenumi}
   \end{enumerate}
@@ -79,9 +106,15 @@
 \begin{frame}
   \begin{itemize}
     \item Futtatandó tesztesetek kiválasztása: \emph{Tests} nézetben.\\
-      \resizebox{0.5\textheight}{!}{\includegraphics{./tests.png}}
-    \item Kiválasztott/összes teszteset futtatása: \emph{Test Results} kimeneti ablaktábla (\emph{Window $\to$ Output Panes $\to$ Test Results}) zöld háromszögeivel\\
-      \resizebox{0.5\textheight}{!}{\includegraphics{./outputPane.png}}
+      \resizebox{0.8\textheight}{!}{\includegraphics{./tests.png}}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{itemize}
+    \item Kiválasztott/összes teszteset futtatása: \emph{Test Results} kimeneti ablaktábla (\emph{Window $\to$ Output Panes 
+$\to$ Test Results}) zöld háromszögeivel\\
+      \resizebox{\textheight}{!}{\includegraphics{./outputPane.png}}
   \end{itemize}
 \end{frame}
 

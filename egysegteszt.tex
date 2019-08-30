@@ -24,7 +24,9 @@
   keywordstyle=\color{MidnightBlue}\bfseries,
   stringstyle=\color{DarkOrchid},
   commentstyle=\color{Brown},
-  morecomment=[l][\color{OliveGreen}]{\#}
+  morecomment=[l][\color{OliveGreen}]{\#},
+  breaklines=true,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}
 }
 \usepackage{hyperref}
 \usepackage{attachfile}
@@ -38,7 +40,6 @@
 %%%%%
 \attachfilesetup{color={1.0 0.6 0.0},author={HFM},description={Kattintson duplán a minta %
 megtekintéséhez!},icon=Paperclip}
-\usetheme{Warsaw}
 \definecolor{kiemelesszin}{rgb}{0.6,0.0,0.0}
 \definecolor{kiemelesszinZ}{rgb}{0.0,0.6,0.0}
 \definecolor{kiemelesszinN}{RGB}{196,127,0}
@@ -107,7 +108,7 @@ megtekintéséhez!},icon=Paperclip}
 \subsection{Qt Creator integráció}
 \input{section0308.tex}
 
-\section{Források}
+\section[Forr.]{Források}
 
 \begin{frame}
   Tesztelésről általában\\

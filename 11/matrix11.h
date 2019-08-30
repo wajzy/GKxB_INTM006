@@ -12,21 +12,21 @@ class Matrix {
     Matrix(std::vector<std::vector<T>> src) {
       mtx = src;
     }
-    Matrix<T> mul(Matrix<T> right);
-    void print();
-    std::string toString();
-    const char* toCString();
-    int getRowCount() { return mtx.size(); }
-    int getColCount() { return mtx[0].size(); }
-    T get(int row, int column) { return mtx[row][column]; }
+    Matrix<T> mul(Matrix<T> right) const;
+    void print() const;
+    std::string toString() const;
+    const char* toCString() const;
+    int getRowCount() const { return mtx.size(); }
+    int getColCount() const { return mtx[0].size(); }
+    T get(int row, int column) const { return mtx[row][column]; }
     template<class U>
     friend bool operator==(const Matrix<U> &m1, const Matrix<U> &m2);
 };
 
 template<class T>
-void Matrix<T>::print() {
-  for(std::vector<T> row : mtx) {
-    for(T elem : row) {
+void Matrix<T>::print() const {
+  for(auto row : mtx) {
+    for(auto elem : row) {
       std::cout << elem << '\t';
     }
     std::cout << std::endl;
@@ -34,10 +34,10 @@ void Matrix<T>::print() {
 }
 
 template<class T>
-std::string Matrix<T>::toString() {
+std::string Matrix<T>::toString() const {
   std::stringstream ss;
-  for(std::vector<T> row : mtx) {
-    for(T elem : row) {
+  for(auto row : mtx) {
+    for(auto elem : row) {
       ss << elem << '\t';
     }
     ss << std::endl;
@@ -46,12 +46,12 @@ std::string Matrix<T>::toString() {
 }
 
 template<class T>
-const char* Matrix<T>::toCString() {
+const char* Matrix<T>::toCString() const {
   return toString().c_str();
 }
 
 template<class T>
-Matrix<T> Matrix<T>::mul(Matrix<T> right) {
+Matrix<T> Matrix<T>::mul(Matrix<T> right) const {
   // Rows of left matrix and result matrix
   int i = mtx.size();
   // Columns of right matrix and res. matrix

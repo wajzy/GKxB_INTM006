@@ -11,17 +11,17 @@ class Matrix {
     Matrix(std::vector<std::vector<T>> src) {
       mtx = src;
     }
-    Matrix<T> mul(Matrix<T> right);
-    void print();
-    int getRowCount() { return mtx.size(); }
-    int getColCount() { return mtx[0].size(); }
-    T get(int row, int column) { return mtx[row][column]; }
+    Matrix<T> mul(Matrix<T> right) const;
+    void print() const;
+    int getRowCount() const { return mtx.size(); }
+    int getColCount() const { return mtx[0].size(); }
+    T get(int row, int column) const { return mtx[row][column]; }
 };
 
 template<class T>
-void Matrix<T>::print() {
-  for(std::vector<T> row : mtx) {
-    for(T elem : row) {
+void Matrix<T>::print() const {
+  for(auto row : mtx) {
+    for(auto elem : row) {
       std::cout << elem << '\t';
     }
     std::cout << std::endl;
@@ -29,7 +29,7 @@ void Matrix<T>::print() {
 }
 
 template<class T>
-Matrix<T> Matrix<T>::mul(Matrix<T> right) {
+Matrix<T> Matrix<T>::mul(Matrix<T> right) const {
   // Rows of left matrix and result matrix
   int i = mtx.size();
   // Columns of right matrix and res. matrix
