@@ -117,7 +117,7 @@ TEST(MulTest, randomized) {
 }
 
 TEST(MatrixDeathTest, constructor) {
-  ASSERT_EXIT(szeMatrix::Matrix<double> mtxRnd(-1, 2, 1., 2.);, 
+  ASSERT_EXIT(szeMatrix::Matrix<double> mtxRnd(-1, 2, 1., 2.), 
               ::testing::ExitedWithCode(1), 
               "Row and column numbers must be non-negative.");
 }
