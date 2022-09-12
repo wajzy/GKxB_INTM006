@@ -18,19 +18,20 @@
   \begin{block}{Kimenet}
     \footnotesize
     \begin{verbatim}
-wajzy@wajzy-notebook:~/Dokumentumok/gknb_intm006/GKxB_INTM006/07$ make
+wajzy@wajzy-notebook:~/Dokumentumok/gknb_intm006/GKxB_INTM006/07$ cmake --build build
 ...
-/home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/07/matrix07test.cpp:50:3: 
+/home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/07/matrix07test.cpp:50:3:   
   required from here
-/usr/include/gtest/gtest.h:1325:16: error: no match for ‘operator==’ (operand 
-  types are ‘const szeMatrix::Matrix<double>’ and 
-‘const szeMatrix::Matrix<double>’)
-   if (expected == actual) {
-                ^
+/home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/07/build/_deps/googletest-src/
+  googletest/include/gtest/gtest.h:1358:11: error: no match for ‘operator==’ 
+  (operand types are ‘const szeMatrix::Matrix<double>’ and 
+  ‘const szeMatrix::Matrix<double>’)
+   if (lhs == rhs) {
+       ~~~~^~~~~~
 ...
 \end{verbatim}
   \end{block}
-  \vfill
+  \vspace{-0.3cm}
   Probléma: az 50. sor \texttt{ASSERT\_EQ(mexp, multiplied);} utasítása feltételezi az == operátor felültöltését a 
 \texttt{Matrix} osztályhoz.
 \end{frame}
@@ -52,23 +53,18 @@ wajzy@wajzy-notebook:~/Dokumentumok/gknb_intm006/GKxB_INTM006/07$ make
     \scriptsize
     \vspace{-.5cm}
     \begin{verbatim}
-wajzy@wajzy-notebook:~/Dokumentumok/gknb_intm006/GKxB_INTM006/08$ make
-[100%] Built target runTests
-wajzy@wajzy-notebook:~/Dokumentumok/gknb_intm006/GKxB_INTM006/08$ ./runTests 
-[==========] Running 3 tests from 1 test case.
-[----------] Global test environment set-up.
-[----------] 3 tests from MulTest
-[ RUN      ] MulTest.meaningful
-[       OK ] MulTest.meaningful (0 ms)
-[ RUN      ] MulTest.equality
-[       OK ] MulTest.equality (1 ms)
-[ RUN      ] MulTest.rounding
-[       OK ] MulTest.rounding (0 ms)
-[----------] 3 tests from MulTest (1 ms total)
+wajzy@wajzy-notebook:~/Dokumentumok/gknb_intm006/GKxB_INTM006/08$ cd build/ && ctest
+Test project /home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/08/build
+    Start 1: MulTest.meaningful
+1/3 Test #1: MulTest.meaningful ...............   Passed    0.00 sec
+    Start 2: MulTest.equality
+2/3 Test #2: MulTest.equality .................   Passed    0.00 sec
+    Start 3: MulTest.rounding
+3/3 Test #3: MulTest.rounding .................   Passed    0.00 sec
 
-[----------] Global test environment tear-down
-[==========] 3 tests from 1 test case ran. (1 ms total)
-[  PASSED  ] 3 tests.
+100% tests passed, 0 tests failed out of 3
+
+Total Test time (real) =   0.01 sec
 \end{verbatim}
     \vspace{-.4cm}
   \end{block}

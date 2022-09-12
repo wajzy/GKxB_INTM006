@@ -12,22 +12,17 @@
 \end{frame}
 
 \begin{frame}
-  Telepítés (Ubuntu 18.04 LTS)
-  \begin{description}[m]
-    \item[\texttt{sudo apt install libgtest-dev}] \hfill \\ Teszt keretrendszer forrásainak beszerzése.
-    \item[\texttt{sudo apt install cmake}] \hfill \\ Ezzel végezzük a forráskódok automatizált fordítását.
-    \item[\texttt{cd /usr/src/gtest}] \hfill \\ Ebben a mappában találhatóak a források.
-    \item[\texttt{sudo cmake CMakeLists.txt}] \hfill \\ Összeállító (build) környezet előkészítése.
-    \item[\texttt{sudo make}] \hfill \\ Összeállítás indítása.
-  \end{description}
+  \begin{itemize}
+    \item Fejlesztőkörnyezet (pl. VS Code, gcc) telepítés, ha még nincs\\
+    \item \texttt{cmake} (forráskódok automatizált fordítása) telepítés (Ubuntu)
+    \begin{description}[m]
+      \item[\texttt{sudo apt install cmake}] modern disztribúciókon
+      \item[\hiv{\href{https://askubuntu.com/questions/355565/how-do-i-install-the-latest-version-of-cmake-from-the-command-line}{Régi disztribúciókon, ahol a cmake verzió nem elég friss (3.14+)}}]
+    \end{description}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \begin{description}[m]
-    \item[\texttt{sudo ln -st /usr/lib/ /usr/src/gtest/libgtest.a}]
-    \item[\texttt{sudo ln -st /usr/lib/ /usr/src/gtest/libgtest\_main.a}] \hfill \\ Szimbolikus hivatkozások létrehozása.
-  \end{description}
-  \vfill
   Feladat
   \begin{itemize}
     \item[] Készítsünk mátrixműveleteket megvalósító osztályt, ami elsőként egy mátrixszorzást valósít meg.
@@ -35,6 +30,13 @@
 szorzatán azt a $C[c_{i,j}]_{m\times{p}}$ mátrixot értjük, amelyre $c_{i,j} =
 a_{i,1}\cdot{b}_{1,j} + a_{i,2}\cdot{b}_{2,j} + \dots + a_{i,n}\cdot{b}_{n,j} =
 \sum_{k=1}^{n}a_{i,k}\cdot{b}_{k,j}$ 
+  \end{itemize}
+  \vfill
+  Megoldás
+  \begin{itemize}
+    \item Hozzuk létre a projekt könyvtárát: \texttt{mkdir 01}
+    \item Lépjünk bele: \texttt{cd 01}
+    \item Hozzuk létre a szükséges forráskódokat: \texttt{matrix01.h} (mátrix osztály), \texttt{example01.cpp} (főprogram)
   \end{itemize}
 \end{frame}
 
@@ -83,7 +85,7 @@ a_{i,1}\cdot{b}_{1,j} + a_{i,2}\cdot{b}_{2,j} + \dots + a_{i,n}\cdot{b}_{n,j} =
     \small
     \lstinputlisting[style=cpp,linerange={14-21},numbers=left,firstnumber=14]{01/example01.cpp}
   \end{exampleblock}
-  \begin{block}{Kimenet}
+  \begin{block}{Fordítás (\texttt{g++ -o example01 example01.cpp}), kimenet:}
     \vspace{-.5cm}
     \begin{verbatim}
 50      50      50
@@ -110,40 +112,46 @@ a_{i,1}\cdot{b}_{1,j} + a_{i,2}\cdot{b}_{2,j} + \dots + a_{i,n}\cdot{b}_{n,j} =
 
 \begin{frame}
   \begin{exampleblock}{\textattachfile{01/matrix01test.cpp}{01/matrix01test.cpp}}
-    \footnotesize
-    \lstinputlisting[style=cpp,linerange={21-33},numbers=left,firstnumber=21]{01/matrix01test.cpp}
+    \small
+    \lstinputlisting[style=cpp,linerange={21-28},numbers=left,firstnumber=21]{01/matrix01test.cpp}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  A buildelést már a \texttt{cmake} végzi, hozzuk létre a konfigurációját!
+  \begin{exampleblock}{\textattachfile{01/CMakeLists.txt}{01/CMakeLists.txt}}
+    \scriptsize
+    \lstinputlisting[linerange={1-15},numbers=left,firstnumber=1]{01/CMakeLists.txt}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}
   \begin{exampleblock}{\textattachfile{01/CMakeLists.txt}{01/CMakeLists.txt}}
     \footnotesize
-    \lstinputlisting[style=cpp,linerange={1-1},numbers=left,firstnumber=1]{01/CMakeLists.txt}
-    \lstinputlisting[style=cpp,linerange={14-21},numbers=left,firstnumber=14]{01/CMakeLists.txt}
+    \lstinputlisting[linerange={17-29},numbers=left,firstnumber=17]{01/CMakeLists.txt}
   \end{exampleblock}
 \end{frame}
-
+%
+%
+%
 \begin{frame}[fragile]
   \begin{description}[m]
     \footnotesize
-    \item[\texttt{cmake CMakeLists.txt}] \hfill \\ Összeállító (build) környezet beállítása.
-    \item[\texttt{make}] \hfill \\ Összeállítás indítása.
-    \item[\texttt{./runTests}] \hfill \\ Tesztprogram indítása.
+    \item[\texttt{cmake -S . -B build}] \hfill \\ Összeállító (build) környezet létrehozása.
+    \item[\texttt{cmake --build build}] \hfill \\ Összeállítás indítása.
+    \item[\texttt{cd build \&\& ctest}] \hfill \\ Tesztprogram indítása.
   \end{description}
   \begin{block}{Kimenet}
     \scriptsize
     \vspace{-.5cm}
     \begin{verbatim}
-[==========] Running 1 test from 1 test case.
-[----------] Global test environment set-up.
-[----------] 1 test from MulTest
-[ RUN      ] MulTest.meaningful
-[       OK ] MulTest.meaningful (0 ms)
-[----------] 1 test from MulTest (0 ms total)
+Test project /home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/01/build
+    Start 1: MulTest.meaningful
+1/1 Test #1: MulTest.meaningful ...............   Passed    0.01 sec
 
-[----------] Global test environment tear-down
-[==========] 1 test from 1 test case ran. (0 ms total)
-[  PASSED  ] 1 test.
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.01 sec
 \end{verbatim}
     \vspace{-.4cm}
   \end{block}
@@ -162,7 +170,7 @@ a_{i,1}\cdot{b}_{1,j} + a_{i,2}\cdot{b}_{2,j} + \dots + a_{i,n}\cdot{b}_{n,j} =
   \begin{tabular}{ll}
     \textbf{googletest} & \textbf{ISTQB}\\\hline
     teszt (test) & teszteset\\
-    teszteset (test case) & tesztkészlet
+    teszteset (test case, test suite) & tesztkészlet
   \end{tabular}
 \end{frame}
 
@@ -188,46 +196,23 @@ a_{i,1}\cdot{b}_{1,j} + a_{i,2}\cdot{b}_{2,j} + \dots + a_{i,n}\cdot{b}_{n,j} =
 \end{frame}
 
 \begin{frame}[fragile]
-  \begin{block}{Kimenet}
-    \footnotesize
+  \begin{block}{Kimenet, \textattachfile{02/build/Testing/Temporary/LastTest.log}{LastTest.log}}
+    \tiny
     \begin{verbatim}
-[==========] Running 1 test from 1 test case.
-[----------] Global test environment set-up.
-[----------] 1 test from MulTest
-[ RUN      ] MulTest.meaningful
-/home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/02/matrix02test.cpp:25: Failure
-      Expected: expected[row][col]
-      Which is: 50
-To be equal to: multiplied.get(row, col)
-      Which is: 0
-...
+Test project /home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/02/build
+    Start 1: MulTest.meaningful
+1/1 Test #1: MulTest.meaningful ...............***Failed    0.00 sec
+
+0% tests passed, 1 tests failed out of 1
+
+Total Test time (real) =   0.01 sec
+
+The following tests FAILED:
+    1 - MulTest.meaningful (Failed)
+Errors while running CTest
+Output from these tests are in: /home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/02/build/Testing/Temporary/LastTest.log
+Use "--rerun-failed --output-on-failure" to re-run the failed cases verbosely.
 \end{verbatim}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]
-  \footnotesize
-  \begin{block}{Kimenet}
-    \vspace{-.5cm}
-    \begin{verbatim}
-...
-/home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/02/matrix02test.cpp:25: Failure
-      Expected: expected[row][col]
-      Which is: 130
-To be equal to: multiplied.get(row, col)
-      Which is: 0
-[  FAILED  ] MulTest.meaningful (1 ms)
-[----------] 1 test from MulTest (1 ms total)
-
-[----------] Global test environment tear-down
-[==========] 1 test from 1 test case ran. (1 ms total)
-[  PASSED  ] 0 tests.
-[  FAILED  ] 1 test, listed below:
-[  FAILED  ] MulTest.meaningful
-
- 1 FAILED TEST
-\end{verbatim}
-    \vspace{-.4cm}
   \end{block}
 \end{frame}
 
@@ -247,30 +232,32 @@ To be equal to: multiplied.get(row, col)
 \end{frame}
 
 \begin{frame}[fragile]
-  \begin{block}{Kimenet}
+  \begin{block}{\textattachfile{03/build/Testing/Temporary/LastTest.log}{LastTest.log}}
     \tiny
     \vspace{-.5cm}
     \begin{verbatim}
-[==========] Running 1 test from 1 test case.
+Note: Google Test filter = MulTest.meaningful
+[==========] Running 1 test from 1 test suite.
 [----------] Global test environment set-up.
 [----------] 1 test from MulTest
 [ RUN      ] MulTest.meaningful
 /home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/03/matrix03test.cpp:21: Failure
-      Expected: expected.size()
-      Which is: 3
-To be equal to: multiplied.getRowCount()
-      Which is: 6
+Expected equality of these values:
+  expected.size()
+    Which is: 3
+  multiplied.getRowCount()
+    Which is: 6
 A sorok szama elter! Elvart: 3, kapott: 6
 [  FAILED  ] MulTest.meaningful (0 ms)
 [----------] 1 test from MulTest (0 ms total)
 
 [----------] Global test environment tear-down
-[==========] 1 test from 1 test case ran. (0 ms total)
+[==========] 1 test from 1 test suite ran. (0 ms total)
 [  PASSED  ] 0 tests.
 [  FAILED  ] 1 test, listed below:
 [  FAILED  ] MulTest.meaningful
 
- 1 FAILED TEST
+  1 FAILED TEST
 \end{verbatim}
     \vspace{-.4cm}
   \end{block}

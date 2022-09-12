@@ -100,8 +100,3 @@ TEST(MulTest, toCString) {
   const char* expected = "1\t1\t\n1\t1\t\n";
   ASSERT_STREQ(expected, m2.toCString());
 }
-
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-}

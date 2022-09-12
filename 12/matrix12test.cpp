@@ -119,8 +119,3 @@ TEST_F(MatrixTest, toString) {
 TEST_F(MatrixTest, toCString) {
   ASSERT_STREQ(expectedStr, mtx2by2->toCString());
 }
-
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-}

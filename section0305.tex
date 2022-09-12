@@ -80,33 +80,28 @@ alapértelmezett konstruktor $\to$ \texttt{SetUp()} $\to$ \texttt{TEST\_F} $\to$
 
 \begin{frame}[fragile]
   \begin{block}{Kimenet}
-    \tiny
+    \scriptsize
     \vspace{-.5cm}
     \begin{verbatim}
-wajzy@lenovo:~/Dokumentumok/gknb_intm006/GKxB_INTM006/11$ ./runTests 
-[==========] Running 6 tests from 2 test cases.
-[----------] Global test environment set-up.
-[----------] 3 tests from MulTest
-[ RUN      ] MulTest.meaningful
-[       OK ] MulTest.meaningful (0 ms)
-[ RUN      ] MulTest.equality
-[       OK ] MulTest.equality (0 ms)
-[ RUN      ] MulTest.rounding
-[       OK ] MulTest.rounding (0 ms)
-[----------] 3 tests from MulTest (0 ms total)
+wajzy@lenovo:~/Dokumentumok/gknb_intm006/GKxB_INTM006/11$ cd build/ && ctest 
+Test project /home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/11/build
+    Start 1: MulTest.meaningful
+1/6 Test #1: MulTest.meaningful ...............   Passed    0.00 sec
+    Start 2: MulTest.equality
+2/6 Test #2: MulTest.equality .................   Passed    0.00 sec
+    Start 3: MulTest.rounding
+3/6 Test #3: MulTest.rounding .................   Passed    0.00 sec
+    Start 4: MatrixTest.print
+4/6 Test #4: MatrixTest.print .................   Passed    0.00 sec
+    Start 5: MatrixTest.toString
+5/6 Test #5: MatrixTest.toString ..............   Passed    0.00 sec
+    Start 6: MatrixTest.toCString
+6/6 Test #6: MatrixTest.toCString .............   Passed    0.00 sec
 
-[----------] 3 tests from MatrixTest
-[ RUN      ] MatrixTest.print
-[       OK ] MatrixTest.print (0 ms)
-[ RUN      ] MatrixTest.toString
-[       OK ] MatrixTest.toString (0 ms)
-[ RUN      ] MatrixTest.toCString
-[       OK ] MatrixTest.toCString (0 ms)
-[----------] 3 tests from MatrixTest (0 ms total)
+100% tests passed, 0 tests failed out of 6
 
-[----------] Global test environment tear-down
-[==========] 6 tests from 2 test cases ran. (1 ms total)
-[  PASSED  ] 6 tests.\end{verbatim}
+Total Test time (real) =   0.01 sec
+\end{verbatim}
     \vspace{-.4cm}
   \end{block}
 \end{frame}

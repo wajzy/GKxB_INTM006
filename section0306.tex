@@ -41,8 +41,11 @@ karaktert helyettesít. \\ \texttt{{-}-gtest\_filter=poz1:poz2:...:pozN-neg1:neg
 
 \begin{frame}[fragile]
   \begin{block}{Milyen teszteseteink vannak?}
+    \tiny
     \begin{verbatim}
-./runTests --gtest_list_tests
+wajzy@lenovo:~/Dokumentumok/gknb_intm006/GKxB_INTM006/12/build$ ./matrix_test --gtest_list_tests
+Running main() from /home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/12/build/_deps/googletest-src/googletest/src/
+  gtest_main.cc
 MulTest.
   meaningful
   equality
@@ -76,7 +79,7 @@ Alapértelmezett kimenet: \texttt{test\_detail.xml} Ha \kiemel{kimenet} egy mapp
 elkerülésére. \\ \texttt{{-}-gtest\_output=xml<:kimenet>} \\ \scriptsize
     Pl. \texttt{./runTests {-}-gtest\_filter=MulTest.randomized {-}-gtest\_output=xml:egysegteszt.xml}
   \end{itemize}
-  \begin{block}{\textattachfile{12/egysegteszt.xml}{12/egysegteszt.xml}}
+  \begin{block}{\textattachfile{12/build/egysegteszt.xml}{12/build/egysegteszt.xml}}
     \resizebox{\textwidth}{!}{\includegraphics{./xmlout.png}}
   \end{block}
   \begin{itemize}

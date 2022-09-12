@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="1" failures="1" disabled="0" errors="0" time="0" timestamp="2022-09-12T11:15:02.634" name="AllTests">
+  <testsuite name="MulTest" tests="1" failures="1" disabled="0" skipped="0" errors="0" time="0" timestamp="2022-09-12T11:15:02.634">
+    <testcase name="randomized" file="/home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/12/matrix12test.cpp" line="90" status="run" result="completed" time="0" timestamp="2022-09-12T11:15:02.634" classname="MulTest">
+      <failure message="/home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/12/matrix12test.cpp:101&#x0A;Expected: (max) &gt;= (val), actual: 3 vs 3.06395" type=""><![CDATA[/home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/12/matrix12test.cpp:101
+Expected: (max) >= (val), actual: 3 vs 3.06395]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

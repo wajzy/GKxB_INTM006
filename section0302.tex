@@ -17,29 +17,56 @@
 
 \begin{frame}[fragile]
   \begin{block}{Kimenet}
+    \tiny
+    \vspace{-.5cm}
+    \begin{verbatim}
+Test project /home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/04/build
+    Start 1: MulTest.meaningful
+1/2 Test #1: MulTest.meaningful ...............   Passed    0.00 sec
+    Start 2: MulTest.rounding
+2/2 Test #2: MulTest.rounding .................***Failed    0.00 sec
+
+50% tests passed, 1 tests failed out of 2
+
+Total Test time (real) =   0.00 sec
+
+The following tests FAILED:
+    2 - MulTest.rounding (Failed)
+Errors while running CTest
+Output from these tests are in: /home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/04/build/Testing/Temporary/LastTest.log
+Use "--rerun-failed --output-on-failure" to re-run the failed cases verbosely.
+\end{verbatim}
+    \vspace{-.4cm}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{block}{\textattachfile{04/build/Testing/Temporary/LastTest.log}{LastTest.log}}
     \scriptsize
     \vspace{-.5cm}
     \begin{verbatim}
 ...
 [ RUN      ] MulTest.rounding
 /home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/04/matrix04test.cpp:49: Failure
-Value of: multiplied.get(row, col)
-  Actual: 1.41421
-Expected: expected[row][col]
-Which is: 1.41421
+Expected equality of these values:
+  expected[row][col]
+    Which is: 1.41421
+  multiplied.get(row, col)
+    Which is: 1.41421
 ...
 /home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/04/matrix04test.cpp:49: Failure
-Value of: multiplied.get(row, col)
-  Actual: 0.333333
-Expected: expected[row][col]
-Which is: 0.333333
-[  FAILED  ] MulTest.rounding (0 ms)
+Expected equality of these values:
+  expected[row][col]
+    Which is: 0.333333
+  multiplied.get(row, col)
+    Which is: 0.333333
 ...
 \end{verbatim}
     \vspace{-.4cm}
   \end{block}
   A kerekítési hibák érzékelhetetlenek a kimeneten és a teszt sikertelen.
 \end{frame}
+
 
 \begin{frame}
   Próbálkozzunk a beépített, lebegőpontos számokat összehasonlító makrókkal!
@@ -52,25 +79,25 @@ Which is: 0.333333
 \end{frame}
 
 \begin{frame}[fragile]
-  \begin{block}{Kimenet}
+  \begin{block}{\textattachfile{05/build/Testing/Temporary/LastTest.log}{LastTest.log}}
     \scriptsize
     \vspace{-.5cm}
     \begin{verbatim}
-...
-[ RUN      ] MulTest.rounding
+[RUN      ] MulTest.rounding
 /home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/05/matrix05test.cpp:50: Failure
-Value of: multiplied.get(row, col)
-  Actual: 1.4142135623730951
-Expected: expected[row][col]
-Which is: 1.414213562
+Expected equality of these values:
+  expected[row][col]
+    Which is: 1.414213562
+  multiplied.get(row, col)
+    Which is: 1.4142135623730951
 ...
 /home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/05/matrix05test.cpp:50: Failure
-Value of: multiplied.get(row, col)
-  Actual: 0.33333333333333331
-Expected: expected[row][col]
-Which is: 0.33333333300000001
+Expected equality of these values:
+  expected[row][col]
+    Which is: 0.33333333300000001
+  multiplied.get(row, col)
+    Which is: 0.33333333333333331
 [  FAILED  ] MulTest.rounding (0 ms)
-...
 \end{verbatim}
     \vspace{-.4cm}
   \end{block}
@@ -93,18 +120,15 @@ Which is: 0.33333333300000001
   \begin{block}{Kimenet}
     \scriptsize
     \begin{verbatim}
-[==========] Running 2 tests from 1 test case.
-[----------] Global test environment set-up.
-[----------] 2 tests from MulTest
-[ RUN      ] MulTest.meaningful
-[       OK ] MulTest.meaningful (0 ms)
-[ RUN      ] MulTest.rounding
-[       OK ] MulTest.rounding (0 ms)
-[----------] 2 tests from MulTest (1 ms total)
+Test project /home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/06/build
+    Start 1: MulTest.meaningful
+1/2 Test #1: MulTest.meaningful ...............   Passed    0.00 sec
+    Start 2: MulTest.rounding
+2/2 Test #2: MulTest.rounding .................   Passed    0.00 sec
 
-[----------] Global test environment tear-down
-[==========] 2 tests from 1 test case ran. (1 ms total)
-[  PASSED  ] 2 tests.
+100% tests passed, 0 tests failed out of 2
+
+Total Test time (real) =   0.00 sec
 \end{verbatim}
   \end{block}
 \end{frame}

@@ -112,23 +112,15 @@ félbe (Windows-on nem támogatott).
   Paraméterezés folyt.:
   \begin{description}[mm]
     \item[\emph{matcher}] \hfill\\ A szabvány hibacsatornára írt, elvárt üzenet. Ellenőrizhető:
-    \begin{enumerate}
-      \item 
-\hiv{\href%
-{https://github.com/google/googletest/blob/master/googlemock/docs/cook\_book.md\#using-matchers-in-googletest-assertions}%
-{GMock illesztővel}} (\emph{const std::string\&}-t illeszt)
-      \item 
-\hiv{\href{http://pubs.opengroup.org/onlinepubs/009695399/basedefs/xbd_chap09.html\#tag\_09\_04}%
-{Perl-kompatibilis}} \hiv{\href{https://en.wikipedia.org/wiki/Regular_expression\#POSIX\_basic\_and\_extended}%
-{reguláris kifejezéssel}} (A ,,csupasz'' karakterláncokat \texttt{ContainsRegex(str)}-rel értékelik ki.)
-    \end{enumerate}
+\hiv{\href{https://pubs.opengroup.org/onlinepubs/009695399/basedefs/xbd_chap09.html\#tag_09_04}%
+{POSIX kiterjesztett reguláris kifejezéssel}}
   \end{description}
   Megjegyzések
   \begin{itemize}
     \item A 0 kilépési kóddal leálló programot nem tekintik ,,halott'' programnak. A leállítás általában 
 \texttt{abort()}, \texttt{exit()} hívással vagy egy jelzéssel történik.
     \item A haláltesztek készletének neve \texttt{DeathTest}-re kell, hogy végződjön 
-(\hiv{\href{https://github.com/google/googletest/blob/master/googletest/docs/advanced.md\#death-tests-and-threads}{részletek}}). 
+(\hiv{\href{https://google.github.io/googletest/advanced.html\#death-test-naming}{részletek}}). 
 Szálbiztos környezet szükséges lehet.
   \end{itemize}
 \end{frame}

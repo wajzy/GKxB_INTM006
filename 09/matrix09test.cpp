@@ -83,8 +83,3 @@ TEST(MulTest, print) {
   std::string output = testing::internal::GetCapturedStdout();
   ASSERT_EQ(expected, output.c_str());
 }
-
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-}

@@ -24,16 +24,17 @@ https://chromium.googlesource.com/external/github.com/google/googletest/+/HEAD/g
 \end{frame}
 
 \begin{frame}[fragile]
-  \begin{block}{Kimenet}
+  \begin{block}{\textattachfile{09/build/Testing/Temporary/LastTest.log}{LastTest.log}}
     \footnotesize
     \begin{verbatim}
 ...
 [ RUN      ] MulTest.print
 /home/wajzy/Dokumentumok/gknb_intm006/GKxB_INTM006/09/matrix09test.cpp:84: Failure
-Value of: output.c_str()
-  Actual: 0x1bb1f28
-Expected: expected
-Which is: 0x475e6a
+Expected equality of these values:
+  expected
+    Which is: 0x5576ac2320a2
+  output.c_str()
+    Which is: 0x7fff6fa4a800
 [  FAILED  ] MulTest.print (0 ms)
 ...
 \end{verbatim}

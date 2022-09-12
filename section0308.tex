@@ -73,8 +73,15 @@ az alapértelmezett \emph{qmake}-et, majd lépjünk a következő oldalra!\\
 \begin{frame}
   \begin{enumerate}
     \setcounter{enumi}{\theqt}
-    \item Készítsük el a teszt projektet! A \emph{File $\to$ New File or Project...} menüvel megnyíló ablakban most válasszuk az \emph{Other Project}-et, majd az \emph{Auto Test Project}-et!\\
-    \item A megnyíló dialógusablak \emph{Name} mezőjébe gépeljük az új projekt nevét: \texttt{matrixteszt}!
+    \item Készítsük elő a teszt projekt mappáját:
+    \begin{enumerate}
+      \item \texttt{mkdir matrixtest}
+      \item \texttt{cd matrixtest}
+      \item \texttt{git clone https://github.com/google/googletest.git -b release-1.12.1}
+      \item Másoljuk át a \texttt{14}-es mappa \texttt{matrix14.h} és \texttt{matrix14test.cpp} fájljait a \texttt{matrixtest} könyvtárba!
+    \end{enumerate}
+    \item A \emph{File $\to$ New File or Project...} menüvel megnyíló ablakban most válasszuk az \emph{Other Project}-et, majd az \emph{Auto Test Project}-et!\\
+    \item A megnyíló dialógusablak \emph{Name} mezőjébe gépeljük az új projekt nevét: \texttt{matrixtest}!
     \setcounter{qt}{\theenumi}
   \end{enumerate}
 \end{frame}
@@ -95,19 +102,12 @@ majd adjuk meg a \emph{googletest} könyvtárát! Őrizzük meg a \emph{qmake} �
   \begin{enumerate}
     \setcounter{enumi}{\theqt}
     \item A \emph{Next}, majd \emph{Finish} gombokra kattintva létrejön, és aktívvá válik a teszt projekt.
-    \item A projekt mappájába (\texttt{matrixteszt}) másoljuk be a \texttt{14/matrix14test.cpp} fájlt! A \emph{Projects} nézetben a projekten jobb gombbal kattintva válasszuk az \emph{Add Existing Files...} pontot, és adjuk hozzá az átmásolt fájlt a projekthez!
-    \item Nyissuk meg a fájlt a szerkesztőben, majd módosítsuk az első sort: \texttt{\#include"../szematrix/matrix14.h"}
-    \item Távolítsuk el a projektből a \texttt{main.cpp} és \texttt{tst\_case1.h} fájlokat (Del gomb)!
+    \item A \emph{Projects} nézetben a projekten jobb gombbal kattintva válasszuk az \emph{Add Existing Files...} pontot, és adjuk hozzá a két átmásolt fájlt a projekthez!
+    \item Az automatikusan generált \texttt{main.cpp} main függvényét másoljuk a \texttt{matrix14test.cpp} fájl végére!
+    \item Távolítsuk el a projektből és töröljük a \texttt{main.cpp} és \texttt{tst\_case1.h} fájlokat (Del gomb)!
     \item A tesztprogram a zöld gombbal fordítható, futtatható.
     \setcounter{qt}{\theenumi}
   \end{enumerate}
-\end{frame}
-
-\begin{frame}
-  \begin{itemize}
-    \item Futtatandó tesztesetek kiválasztása: \emph{Tests} nézetben.\\
-      \resizebox{0.8\textheight}{!}{\includegraphics{./tests.png}}
-  \end{itemize}
 \end{frame}
 
 \begin{frame}
