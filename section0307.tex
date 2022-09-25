@@ -98,7 +98,7 @@ programleállást idéz elő \emph{matcher} üzenettel, a kilépési kódot \emp
   Paraméterezés:
   \begin{description}[mm]
     \item[\emph{statement}] \hfill\\ A programleálláshoz vezető (egyszerű vagy összetett) utasítás.
-    \item[\emph{predicate}] \hfill\\ Függvény vagy függvény objektum, ami \texttt{int} paramétert vár és \texttt{bool}-t 
+    \item[\emph{predicate}] \hfill\\ Függvény vagy \hiv{\href{https://learn.microsoft.com/en-us/cpp/standard-library/function-objects-in-the-stl?view=msvc-170}{függvény objektum}}, ami \texttt{int} paramétert vár és \texttt{bool}-t 
 szolgáltat:
     \begin{itemize}
       \item \texttt{::testing::ExitedWithCode(exit\_code)} \\ Az elvárt kilépési kódot ellenőrzi.
