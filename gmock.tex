@@ -79,8 +79,19 @@ megtekintéséhez!},icon=Paperclip}
             \item Milyen sorrendben?
             \item Hányszor?
         \end{itemize}
-        \item[Fake objektumok] \hfill\\ működő, megvalósított objektumok, melyek imitálnak vagy leegyszerűsítenek tevékenységeket (pl. adatbázis lekérdezés vs. előredefiniált lista visszaadása)
       \end{description}
+\end{frame}
+
+\begin{frame}
+    Tesztelési célból egy valódi objektumot helyettesítő objektum (test double) lehet:
+    \begin{description}[m]
+        \footnotesize
+        \item[Dummy] \hfill \\ Soha nem használt objektum, jellemzően csak azért hozzák létre, hogy pl. egy metódusnak formálisan átadhassák. Pl. üres \texttt{Person} osztály.
+        \item [Stub] \hfill \\ Előre bekészített válaszokat ad a tesztek során feltett kérdésekre, másra nem képes. Pl. a \texttt{Person} osztály példányai mindig ugyanazt a vezetéknevet adják vissza.
+        \item [Spy] \hfill \\ Olyan \emph{stub}, ami rögzíti a hívás módját, mennyiségét. Pl. olyan osztály, ami rögzíti, melyik metódusát hányszor hívták.
+        \item [Mock] \hfill \\ A hívásokkal kapcsolatban beprogramozott, specifikáció szerinti elvárásokat támaszt (pl. mennyiség, paraméterezés, sorrend), valamennyi tervezett szolgáltatással kapcsolatban. Pl. a személyes adatok kiírásához valamennyi \emph{getter} metódust hívni kell.
+        \item [Fake] \hfill \\ Teljesen funkcionális kód, de bizonyos egyszerűsítésekkel, amik nem teszik alkalmassá a termelésben történő használatra. Pl. \hiv{\href{https://en.wikipedia.org/wiki/List\_of\_in-memory\_databases}{in-memory}} adatbázisba menti a személyek adatait a valódi helyett.
+    \end{description}
 \end{frame}
 
 \begin{frame}
@@ -426,6 +437,7 @@ Expected equality of these values:
     \footnotesize
     Az elvárt hívások tetszőleges sorrendben megtörténhetnek.
     \begin{exampleblock}{Hívások pontos sorrendjének előírása}
+        \scriptsize
         TEST(PersonTest, pontosSorrend) \{ \\
         \qquad \dots \\
         \qquad \{ \\
